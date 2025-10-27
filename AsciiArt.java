@@ -1,7 +1,7 @@
 public class AsciiArt {
     public static void main(String[] args) {
 
-        // Цветовые коды ANSI
+        
         final String RESET   = "\u001B[0m";
         final String RED     = "\u001B[31m";
         final String GREEN   = "\u001B[32m";
@@ -11,7 +11,27 @@ public class AsciiArt {
         final String CYAN    = "\u001B[36m";
         final String WHITE   = "\u001B[37m";
 
-        // ASCII арт
+        System.out.println(RED     + "   _      _      _      _      _      _      _      _      _      _   " + RESET);
+        System.out.println(GREEN   + " _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_ " + RESET);
+        System.out.println(YELLOW  + "(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)" + RESET);
+        System.out.println(BLUE    + " (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_) " + RESET);
+        System.out.println(MAGENTA + "   _      | | _  |  _  _ __  _                                    _   " + RESET);
+        System.out.println(CYAN    + " _( )_    |^|(/_ | (_ (_)|||(/_                                 _( )_ " + RESET);
+        System.out.println(WHITE   + "(_ o _)                                                        (_ o _)" + RESET);
+        System.out.println(RED     + " (_,_)    _|_ _    _|_|_  _                                     (_,_) " + RESET);
+        System.out.println(GREEN   + "   _       |_(_)    |_| |(/_                                      _   " + RESET);
+        System.out.println(YELLOW  + " _( )_     _        o                                           _( )_ " + RESET);
+        System.out.println(BLUE    + "(_ o _)   |_) __ _  |  _  _ _|_   /|                           (_ o _)" + RESET);
+        System.out.println(MAGENTA + " (_,_)    |   | (_)_| (/_(_  |_    |                            (_,_) " + RESET);
+        System.out.println(CYAN    + "   _       _           _                             o            _   " + RESET);
+        System.out.println(WHITE   + " _( )_    (_| __ _    |_)   __  _ __ |_  _  __ _                _( )_ " + RESET);
+        System.out.println(RED     + "(_ o _)   __| | (_)|_||     |||(/_||||_)(/_ | _>     o         (_ o _)" + RESET);
+        System.out.println(GREEN   + " (_,_)                                                          (_,_) " + RESET);
+        System.out.println(YELLOW  + "   _      _      _      _      _      _      _      _      _      _   " + RESET);
+        System.out.println(BLUE    + " _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_ " + RESET);
+        System.out.println(MAGENTA + "(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)" + RESET);
+        System.out.println(CYAN    + " (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_) " + RESET);
+        
         System.out.println(WHITE + " _____                                                                               _____ ");
         System.out.println("( ___ )-----------------------------------------------------------------------------( ___ )");
         System.out.println(" |   |                                                                               |   | ");
@@ -61,3 +81,4 @@ public class AsciiArt {
         System.out.println(RESET);
     }
 }
+
