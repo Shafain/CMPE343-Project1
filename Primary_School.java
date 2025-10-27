@@ -126,7 +126,7 @@ public class Primary_School {
             System.out.println("Your age is" + age);
 
         } catch (Exception e) {
-            System.err.println("Invalid format! Please type in: (yyyy-month-day)");
+            System.out.println("Invalid format! Please type in: (yyyy-month-day)");
         }
     }
 
@@ -135,16 +135,15 @@ public class Primary_School {
         int left = 0;
         int right = word.length() - 1;
 
+        String turkishLetters = "abcçdefgğhıijklmnoöprsştuüvyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ";
+
         while (left < right) {
-            // Skip non-letters on the left
-            if (!Character.isLetter(chars[left])) {
+            if (turkishLetters.indexOf(chars[left]) == -1) {
                 left++;
             }
-            // Skip non-letters on the right
-            else if (!Character.isLetter(chars[right])) {
+            else if (turkishLetters.indexOf(chars[right]) == -1) {
                 right--;
             }
-            // Swap only letters
             else {
                 char temp = chars[left];
                 chars[left] = chars[right];
@@ -175,9 +174,9 @@ public class Primary_School {
     static void optianA(Scanner user) {
         boolean breaker = true;
         while (breaker) {
-            System.err.println("[A]Age and Zodiac Sign Detector");
-            System.err.println("[B]Reverse the Words");
-            System.err.println("[C]Return to Main Menu");
+            System.out.println("[A]Age and Zodiac Sign Detector");
+            System.out.println("[B]Reverse the Words");
+            System.out.println("[C]Return to Main Menu");
             String input = user.nextLine();
             if (input.length() != 1) {
                 System.out.println("Invalid input! Please enter only a single character: A, B, C, D, or E.");
@@ -232,10 +231,10 @@ public class Primary_School {
 
                 break;
             case 'E':
-                System.err.println("Terminating the program...");
+                System.out.println("Terminating the program...");
                 return false;
             default:
-                System.err.println("Invalid input! Please choose again.");
+                System.out.println("Invalid input! Please choose again.");
         }
         return true;
     }
@@ -248,7 +247,8 @@ public class Primary_School {
                 breaker = selectionmenu(user);
             }
         } catch (Exception e) {
-            System.err.println(e);
+            System.out.println(e);
         }
     }
 }
+
