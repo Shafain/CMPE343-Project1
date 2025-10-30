@@ -1,5 +1,3 @@
-
-//Check if java time library is the best way to use
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -26,6 +24,528 @@ public class Project_v2 {
             array[minVal] = temp;
         }
         return array;
+    }
+
+    static boolean isTurkishLetter(char c) {
+        // Check if character is a Turkish letter (uppercase or lowercase)
+        String turkishLetters = "çÇğĞıİöÖşŞüÜ";
+        return turkishLetters.indexOf(c) != -1 || Character.isLetter(c);
+    }
+
+    static void optionA(Scanner user) {
+        boolean breaker = true;
+        while (breaker) {
+            System.out.println("[A]Age and Zodiac Sign Detector");
+            System.out.println("[B]Reverse the Words");
+            System.out.println("[C]Return to Main Menu");
+            char charinput = Character.toUpperCase(user.next().charAt(0));
+            user.nextLine();
+
+            switch (charinput) {
+                case 'A':
+                    System.out.println("Input your year-month-day in the order: ");
+                    age_and_zodiac(user);
+                    break;
+                case 'B':
+                    reverse_the_text(user);
+                    break;
+                case 'C':
+                    breaker = false;
+                    break;
+                default:
+                    System.err.println("Invalid input! Please enter a single character: A, B, C.");
+            }
+        }
+    }
+
+    static void zodiac_sign(int day, int month) {
+        switch (month) {
+            case 1:
+                if (day >= 20) {
+                    System.out.println("Your sign is Aquarius");
+                } else {
+                    System.out.println("Your sign is Capricon");
+                }
+                break;
+            case 2:
+                if (day <= 18) {
+                    System.out.println("Your sign is Aquarius");
+                } else {
+                    System.out.println("Your sign is Pisces");
+                }
+                break;
+            case 3:
+                if (day <= 20) {
+                    System.out.println("Your sign is Pisces");
+                } else {
+                    System.out.println("Your sign is Aries");
+                }
+                break;
+            case 4:
+                if (day <= 19) {
+                    System.out.println("Your sign is Aries");
+                } else {
+                    System.out.println("Your sign is Taurus");
+                }
+                break;
+            case 5:
+                if (day <= 20) {
+                    System.out.println("Your sign is Taurus");
+                } else {
+                    System.out.println("Your sign is Gemini");
+                }
+                break;
+            case 6:
+                if (day <= 21) {
+                    System.out.println("Your sign is Gemini");
+                } else {
+                    System.out.println("Your sign is Cancer");
+                }
+                break;
+            case 7:
+                if (day <= 22) {
+                    System.out.println("Your sign is Cancer");
+                } else {
+                    System.out.println("Your sign is Leo");
+                }
+                break;
+            case 8:
+                if (day <= 22) {
+                    System.out.println("Your sign is Leo");
+                } else {
+                    System.out.println("Your sign is Virgo");
+                }
+                break;
+            case 9:
+                if (day <= 22) {
+                    System.out.println("Your sign is Virgo");
+                } else {
+                    System.out.println("Your sign is Libra");
+                }
+                break;
+            case 10:
+                if (day <= 22) {
+                    System.out.println("Your sign is Libra");
+                } else {
+                    System.out.println("Your sign is Scorpio");
+                }
+                break;
+            case 11:
+                if (day <= 21) {
+                    System.out.println("Your sign is Scorpio");
+                } else {
+                    System.out.println("Your sign is Sagittarius");
+                }
+                break;
+            case 12:
+                if (day <= 21) {
+                    System.out.println("Your sign is Sagittarius");
+                } else {
+                    System.out.println("Your sign is Capricorn");
+                }
+                break;
+            default:
+                System.out.println("Something went wrong");
+        }
+    }
+
+    static void age_and_zodiac(Scanner user) {
+        System.out.println("Please enter your birthday: yyyy-MM-dd");
+        String user_birth = user.nextLine();
+        try {
+            LocalDate time = LocalDate.now();
+            LocalDate birthDay = LocalDate.parse(user_birth, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            int user_year = birthDay.getYear();
+            int user_month = birthDay.getMonthValue();
+            int user_day = birthDay.getDayOfMonth();
+
+            int year = time.getYear();
+            int month = time.getMonthValue();
+            int day = time.getDayOfMonth();
+
+            boolean bornInFuture = false;
+
+            if (user_year > year) {
+                bornInFuture = true;
+            } else if (user_year == year && user_month > month) {
+                bornInFuture = true;
+            } else if (user_year == year && user_month == month && user_day > day) {
+                bornInFuture = true;
+            }
+
+            if (bornInFuture) {
+                System.out.println("You can't be born in the future!");
+                return;
+            }
+
+            int age = year - user_year;
+
+            if (month < user_month || (month == user_month && day < user_day)) {
+                age--;
+            }
+
+            zodiac_sign(user_day, user_month);
+            System.out.println("Your age is: " + age);
+
+        } catch (Exception e) {
+            System.err.println("Invalid format! Please type in: (yyyy-month-day)");
+        }
+    }
+
+    static String reverse_the_word(String word) {
+        char[] chars = word.toCharArray();
+        int left = 0;
+        int right = word.length() - 1;
+
+        while (left < right) {
+            // Skip non-letter (including punctuation, digits, etc.)
+            if (!isTurkishLetter(chars[left])) {
+                left++;
+            } else if (!isTurkishLetter(chars[right])) {
+                right--;
+            } else {
+                // Swap valid Turkish or normal letters
+                char temp = chars[left];
+                chars[left] = chars[right];
+                chars[right] = temp;
+                left++;
+                right--;
+            }
+        }
+        return new String(chars);
+    }
+
+    static void reverse_the_text(Scanner user) {
+        System.out.println("Enter text to reverse:");
+        String text = user.nextLine();
+
+        String[] words = text.split(" ");
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < words.length; i++) {
+            result.append(reverse_the_word(words[i]));
+            if (i < words.length - 1) {
+                result.append(" ");
+            }
+        }
+
+        System.out.println(result.toString());
+    }
+
+    static void optionB(Scanner user) {
+        boolean breaker = true;
+        while (breaker) {
+            System.out.println("[A]Prime Numbers");
+            System.out.println("[B]Step-by-step Eveluation of Expression");
+            System.out.println("[C]Return to Main Menu");
+            char charinput = Character.toUpperCase(user.next().charAt(0));
+            user.nextLine();
+
+            switch (charinput) {
+                case 'A':
+                    prime_number_output(user);
+                    break;
+                case 'B':
+                    evaluate_expression(user);
+                    break;
+                case 'C':
+                    breaker = false;
+                    break;
+                default:
+                    System.err.println("Invalid input! Please enter a signle character: A, B, C");
+            }
+        }
+    }
+
+    static int prime_number_input(Scanner user) {
+        System.out.println("Enter an integer n ≥ 12:");
+        int n, max = 1000;
+        while (true) {
+            try {
+                n = user.nextInt();
+            } catch (Exception e) {
+                System.err.println("Invalid input! Please enter an integer.");
+                user.nextLine();
+                continue;
+            }
+            if (n > max) {
+                System.err.println("Too large! limit is 1000");
+                System.out.println("Please enter a value between 12 and 1000:");
+                continue;
+            }
+
+            if (n < 12) {
+                System.err.println("Invalid input! Please enter a number ≥ 12.");
+                continue;
+            }
+            return n;
+
+        }
+
+    }
+
+    static List<Integer> eratosthenes(int n) {
+        boolean[] isPrime = new boolean[n + 1];
+        for (int i = 1; i <= n; i++) {
+            isPrime[i] = true;
+        }
+        for (int i = 2; i * i <= n; i++) {
+            if (isPrime[i] == true) {
+                for (int j = i * i; j <= n; j += i) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+        List<Integer> primes = new ArrayList<>();
+        if (n >= 2)
+            primes.add(2);
+        if (n >= 3)
+            primes.add(3);
+
+        for (int i = 4; i <= n; i++) {
+            if (isPrime[i] == true) {
+                primes.add(i);
+            }
+        }
+        return primes;
+
+    }
+
+    static List<Integer> sundaram(int n) {
+        boolean[] not_Prime = new boolean[n + 1];
+        // find the correct index
+        for (int i = 1; i <= (n - 2) / 2; i++) {
+            for (int j = i; i + j + 2 * i * j <= (n - 2) / 2; j++) {
+                not_Prime[i + j + 2 * i * j] = true;
+            }
+        }
+        List<Integer> primes = new ArrayList<>();
+        if (n >= 2)
+            primes.add(2);
+        for (int i = 1; i <= (n - 2) / 2; i++) {
+            if (not_Prime[i] == false)
+                // add prime numbers except the correct index
+                primes.add(2 * i + 1);
+        }
+        return primes;
+
+    }
+
+    static List<Integer> atkin(int n) {
+        boolean[] isPrime = new boolean[n + 1];
+        int limit = (int) Math.sqrt(n);
+
+        for (int x = 1; x <= limit; x++) {
+            for (int y = 1; y <= limit; y++) {
+                int number = 4 * x * x + y * y;
+                if (number <= n && (number % 12 == 1 || number % 12 == 5)) {
+                    isPrime[number] = !isPrime[number];
+                }
+
+                number = 3 * x * x + y * y;
+                if (number <= n && number % 12 == 7) {
+                    isPrime[number] = !isPrime[number];
+                }
+
+                number = 3 * x * x - y * y;
+                if (x > y && number <= n && number % 12 == 11) {
+                    isPrime[number] = !isPrime[number];
+                }
+            }
+        }
+        for (int i = 5; i <= limit; i++) {
+            if (isPrime[i]) {
+                int square = i * i;
+                for (int j = square; j <= n; j += square) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+        List<Integer> primes = new ArrayList<>();
+        if (n >= 2) {
+            primes.add(2);
+        }
+        if (n >= 3) {
+            primes.add(3);
+        }
+
+        for (int i = 5; i <= n; i++) {
+            if (isPrime[i]) {
+                primes.add(i);
+            }
+        }
+
+        return primes;
+    }
+
+    /*
+     * Here is the Output of prime numbers
+     * =========================================
+     */
+    static void prime_number_output(Scanner user) {
+        int n = prime_number_input(user);
+        // eratosthenes
+        long startE = System.nanoTime();
+        List<Integer> eratosthenes_algorithm = eratosthenes(n);
+        long endE = System.nanoTime();
+        double eratosthenes_time = (endE - startE) / 1_000_000.0;
+        // sundaram
+        long startS = System.nanoTime();
+        List<Integer> sundaram_algorithm = sundaram(n);
+        long endS = System.nanoTime();
+        double sundaram_time = (endS - startS) / 1_000_000.0;
+
+        // atkin
+        long startA = System.nanoTime();
+        List<Integer> atkin_algorithm = atkin(n);
+        long endA = System.nanoTime();
+        double atkin_time = (endA - startA) / 1_000_000.0;
+        System.out.println("========Prime Number Genreation ========");
+        System.out.println("Generating Prime Numbers up to " + n);
+        System.out.println("Eratosthenes algorithm: \nfirst 3: " + eratosthenes_algorithm.subList(0, 3) + "\nLast 2: "
+                + eratosthenes_algorithm.subList(eratosthenes_algorithm.size() - 2, eratosthenes_algorithm.size()));
+        System.out.println("Execution time: " + eratosthenes_time);
+        System.out.println("Sundaram algorithm: \nfirst 3: " + sundaram_algorithm.subList(0, 3) + "\nLast 2: "
+                + sundaram_algorithm.subList(sundaram_algorithm.size() - 2, sundaram_algorithm.size()));
+        System.out.println("Execution time: " + sundaram_time);
+        System.out.println("Atkin algorithm: " + "\nfirst 3: " + atkin_algorithm.subList(0, 3) + "\nLast 2: "
+                + atkin_algorithm.subList(atkin_algorithm.size() - 2, atkin_algorithm.size()));
+        System.out.println("Execution time: " + atkin_time);
+        user.nextLine();
+    }
+
+    static void evaluate_expression(Scanner user) {
+        System.out.println("Enter an expression (use + - x : and parentheses):");
+        String expr = user.nextLine();
+
+        // remove spaces just to be safe
+        expr = expr.replaceAll("\\s+", "");
+
+        // check if the input contains only allowed characters
+        if (!expr.matches("[0-9()+\\-x:]+")) {
+            System.out.println("Error: Only digits, + - x : and () are allowed.");
+            return;
+        }
+
+        // quick check for balanced brackets, otherwise parsing breaks
+        if (!isParenthesesBalanced(expr)) {
+            System.out.println("Error: Parentheses are not balanced.");
+            return;
+        }
+
+        // convert normal symbols to Java-friendly ones
+        expr = expr.replace("x", "*").replace(":", "/");
+
+        System.out.println("Solving step by step...");
+
+        // start simplifying the expression until nothing is left
+        System.out.println("= " + simplify(expr));
+    }
+
+    static boolean isParenthesesBalanced(String expr) {
+        int counter = 0;
+        for (char c : expr.toCharArray()) {
+            if (c == '(')
+                counter++;
+            else if (c == ')')
+                counter--;
+
+            if (counter < 0)
+                return false; // closed too early
+        }
+        return counter == 0; // 0 means balanced
+    }
+
+    static double evalSimple(String expr) {
+        List<Double> numbers = new ArrayList<>();
+        List<Character> ops = new ArrayList<>();
+        StringBuilder currentNumber = new StringBuilder();
+
+        // split into separate numbers and operators
+        for (char c : expr.toCharArray()) {
+            if (Character.isDigit(c) || c == '.') {
+                currentNumber.append(c);
+            } else {
+                numbers.add(Double.parseDouble(currentNumber.toString()));
+                currentNumber.setLength(0);
+                ops.add(c);
+            }
+        }
+        numbers.add(Double.parseDouble(currentNumber.toString()));
+
+        // first solve * and /
+        for (int i = 0; i < ops.size();) {
+            char op = ops.get(i);
+            if (op == '*' || op == '/') {
+                double result = (op == '*') ? numbers.get(i) * numbers.get(i + 1)
+                        : numbers.get(i) / numbers.get(i + 1);
+
+                numbers.set(i, result);
+                numbers.remove(i + 1);
+                ops.remove(i);
+            } else {
+                i++;
+            }
+        }
+
+        // now solve + and -
+        double result = numbers.get(0);
+        for (int i = 0; i < ops.size(); i++) {
+            if (ops.get(i) == '+')
+                result += numbers.get(i + 1);
+            else
+                result -= numbers.get(i + 1);
+        }
+
+        return result;
+    }
+
+    // Recursively solve inside parentheses first
+    static String simplify(String expr) {
+        int open = expr.lastIndexOf('(');
+        if (open != -1) {
+            int close = expr.indexOf(')', open);
+            String inside = expr.substring(open + 1, close);
+
+            double value = evalSimple(inside);
+
+            // replace the parentheses with the evaluated result
+            String newExpr = expr.substring(0, open) + value + expr.substring(close + 1);
+
+            System.out.println("= " + newExpr);
+
+            return simplify(newExpr);
+        }
+
+        // final evaluation (no parentheses left)
+        double finalVal = evalSimple(expr);
+        System.out.println("= " + finalVal);
+        return String.valueOf(finalVal);
+    }
+
+    static void optionC(Scanner user) {
+        boolean breaker = true;
+
+        while (breaker) {
+            System.out.println("\n[A] Statistical information about an Array");
+            System.out.println("[B] Distance between Two Arrays");
+            System.out.println("[C] Return to Main Menu");
+            char charinput = Character.toUpperCase(user.next().charAt(0));
+            user.nextLine();
+            switch (charinput) {
+                case 'A':
+                    stat_info_arr(user);
+                    break;
+                case 'B':
+                    dist_btwn_arr(user);
+                    break;
+                case 'C':
+                    breaker = false;
+                    break;
+                default:
+                    System.err.println("Invalid input! Please choose again.");
+            }
+        }
     }
 
     static double median(int size, double[] stat_arr) {
@@ -177,27 +697,28 @@ public class Project_v2 {
         System.out.println(Arrays.toString(array2));
     }
 
-    static void optionC(Scanner user) {
+    static void optionD(Scanner user) {
         boolean breaker = true;
 
         while (breaker) {
-            System.out.println("\n[A] Statistical information about an Array");
-            System.out.println("[B] Distance between Two Arrays");
-            System.out.println("[C] Return to Main Menu");
-            String input = user.nextLine();
-            if (input.length() != 1) {
-                System.out.println("Invalid input! Please enter only a single character: A, B, or C.");
-                continue;
-            }
-            char charinput = Character.toUpperCase(input.charAt(0));
+            System.out.println("This is game Connect 4, please choose the size of the board: ");
+            System.out.println("[A]5 X 4");
+            System.out.println("[B]6 X 5");
+            System.out.println("[C]7 X 6");
+            System.out.println("[D]Return to Main Menu");
+            char charinput = Character.toUpperCase(user.next().charAt(0));
+            user.nextLine();
             switch (charinput) {
                 case 'A':
-                    stat_info_arr(user);
+                    game_mode(user, 5, 4);
                     break;
                 case 'B':
-                    dist_btwn_arr(user);
+                    game_mode(user, 6, 5);
                     break;
                 case 'C':
+                    game_mode(user, 7, 6);
+                    break;
+                case 'D':
                     breaker = false;
                     break;
                 default:
@@ -404,544 +925,14 @@ public class Project_v2 {
         }
     }
 
-    static void optionD(Scanner user) {
-        boolean breaker = true;
-
-        while (breaker) {
-            System.out.println("This is game Connect 4, please choose the size of the board: ");
-            System.out.println("[A]5 X 4");
-            System.out.println("[B]6 X 5");
-            System.out.println("[C]7 X 6");
-            System.out.println("[D]Return to Main Menu");
-            String input = user.nextLine();
-            if (input.length() != 1) {
-                System.out.println("Invalid input! Please enter only a single character: A, B, C or D");
-                continue;
-            }
-            char charinput = Character.toUpperCase(input.charAt(0));
-            switch (charinput) {
-                case 'A':
-                    game_mode(user, 5, 4);
-                    break;
-                case 'B':
-                    game_mode(user, 6, 5);
-                    break;
-                case 'C':
-                    game_mode(user, 7, 6);
-                    break;
-                case 'D':
-                    breaker = false;
-                    break;
-                default:
-                    System.err.println("Invalid input! Please choose again.");
-            }
-        }
-    }
-
-    static void zodiac_sign(int day, int month) {
-        switch (month) {
-            case 1:
-                if (day >= 20) {
-                    System.out.println("Your sign is Aquarius");
-                } else {
-                    System.out.println("Your sign is Capricon");
-                }
-                break;
-            case 2:
-                if (day <= 18) {
-                    System.out.println("Your sign is Aquarius");
-                } else {
-                    System.out.println("Your sign is Pisces");
-                }
-                break;
-            case 3:
-                if (day <= 20) {
-                    System.out.println("Your sign is Pisces");
-                } else {
-                    System.out.println("Your sign is Aries");
-                }
-                break;
-            case 4:
-                if (day <= 19) {
-                    System.out.println("Your sign is Aries");
-                } else {
-                    System.out.println("Your sign is Taurus");
-                }
-                break;
-            case 5:
-                if (day <= 20) {
-                    System.out.println("Your sign is Taurus");
-                } else {
-                    System.out.println("Your sign is Gemini");
-                }
-                break;
-            case 6:
-                if (day <= 21) {
-                    System.out.println("Your sign is Gemini");
-                } else {
-                    System.out.println("Your sign is Cancer");
-                }
-                break;
-            case 7:
-                if (day <= 22) {
-                    System.out.println("Your sign is Cancer");
-                } else {
-                    System.out.println("Your sign is Leo");
-                }
-                break;
-            case 8:
-                if (day <= 22) {
-                    System.out.println("Your sign is Leo");
-                } else {
-                    System.out.println("Your sign is Virgo");
-                }
-                break;
-            case 9:
-                if (day <= 22) {
-                    System.out.println("Your sign is Virgo");
-                } else {
-                    System.out.println("Your sign is Libra");
-                }
-                break;
-            case 10:
-                if (day <= 22) {
-                    System.out.println("Your sign is Libra");
-                } else {
-                    System.out.println("Your sign is Scorpio");
-                }
-                break;
-            case 11:
-                if (day <= 21) {
-                    System.out.println("Your sign is Scorpio");
-                } else {
-                    System.out.println("Your sign is Sagittarius");
-                }
-                break;
-            case 12:
-                if (day <= 21) {
-                    System.out.println("Your sign is Sagittarius");
-                } else {
-                    System.out.println("Your sign is Capricorn");
-                }
-                break;
-            default:
-                System.out.println("Something went wrong");
-        }
-    }
-
-    static void age_and_zodiac(Scanner user) {
-        System.out.println("Please enter your birthday: yyyy-MM-dd");
-        String user_birth = user.nextLine();
-        try {
-            LocalDate time = LocalDate.now();
-            LocalDate birthDay = LocalDate.parse(user_birth, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            int user_year = birthDay.getYear();
-            int user_month = birthDay.getMonthValue();
-            int user_day = birthDay.getDayOfMonth();
-
-            int year = time.getYear();
-            int month = time.getMonthValue();
-            int day = time.getDayOfMonth();
-
-            boolean bornInFuture = false;
-
-            if (user_year > year) {
-                bornInFuture = true;
-            } else if (user_year == year && user_month > month) {
-                bornInFuture = true;
-            } else if (user_year == year && user_month == month && user_day > day) {
-                bornInFuture = true;
-            }
-
-            if (bornInFuture) {
-                System.out.println("You can't be born in the future!");
-                return;
-            }
-
-            int age = year - user_year;
-
-            if (month < user_month || (month == user_month && day < user_day)) {
-                age--;
-            }
-
-            zodiac_sign(user_day, user_month);
-            System.out.println("Your age is: " + age);
-
-        } catch (Exception e) {
-            System.err.println("Invalid format! Please type in: (yyyy-month-day)");
-        }
-    }
-
-    static boolean isTurkishLetter(char c) {
-        // Check if character is a Turkish letter (uppercase or lowercase)
-        String turkishLetters = "çÇğĞıİöÖşŞüÜ";
-        return turkishLetters.indexOf(c) != -1 || Character.isLetter(c);
-    }
-
-    static String reverse_the_word(String word) {
-        char[] chars = word.toCharArray();
-        int left = 0;
-        int right = word.length() - 1;
-
-        while (left < right) {
-            // Skip non-letter (including punctuation, digits, etc.)
-            if (!isTurkishLetter(chars[left])) {
-                left++;
-            } else if (!isTurkishLetter(chars[right])) {
-                right--;
-            } else {
-                // Swap valid Turkish or normal letters
-                char temp = chars[left];
-                chars[left] = chars[right];
-                chars[right] = temp;
-                left++;
-                right--;
-            }
-        }
-        return new String(chars);
-    }
-
-    static void reverse_the_text(Scanner user) {
-        System.out.println("Enter text to reverse:");
-        String text = user.nextLine();
-
-        String[] words = text.split(" ");
-        StringBuilder result = new StringBuilder();
-
-        for (int i = 0; i < words.length; i++) {
-            result.append(reverse_the_word(words[i]));
-            if (i < words.length - 1) {
-                result.append(" ");
-            }
-        }
-
-        System.out.println(result.toString());
-    }
-
-    static void optionA(Scanner user) {
-        boolean breaker = true;
-        while (breaker) {
-            System.out.println("[A]Age and Zodiac Sign Detector");
-            System.out.println("[B]Reverse the Words");
-            System.out.println("[C]Return to Main Menu");
-
-            String input = user.nextLine();
-            if (input.length() != 1) {
-                System.out.println("Invalid input! Please enter only a single character: A, B, C.");
-                continue;
-            }
-            char charinput = Character.toUpperCase(input.charAt(0));
-            switch (charinput) {
-                case 'A':
-                    System.out.println("Input your year-month-day in the order: ");
-                    age_and_zodiac(user);
-                    break;
-                case 'B':
-                    reverse_the_text(user);
-                    break;
-                case 'C':
-                    breaker = false;
-                    break;
-                default:
-                    System.err.println("Invalid input! Please enter a single character: A, B, C.");
-            }
-        }
-
-    }
-
-    static int prime_number_input(Scanner user) {
-        System.out.println("Enter an integer n ≥ 12:");
-        int n;
-        while (true) {
-            try {
-                n = user.nextInt();
-            } catch (Exception e) {
-                System.err.println("Invalid input! Please enter an integer.");
-                user.nextLine();
-                continue;
-            }
-
-            if (n < 12) {
-                System.err.println("Invalid input! Please enter a number ≥ 12.");
-                continue;
-            }
-            return n;
-
-        }
-
-    }
-
-    static List<Integer> eratosthenes(int n) {
-        boolean[] isPrime = new boolean[n + 1];
-        for (int i = 1; i <= n; i++) {
-            isPrime[i] = true;
-        }
-        for (int i = 2; i * i <= n; i++) {
-            if (isPrime[i] == true) {
-                for (int j = i * i; j <= n; j += i) {
-                    isPrime[j] = false;
-                }
-            }
-        }
-        List<Integer> primes = new ArrayList<>();
-        if (n >= 2)
-            primes.add(2);
-        if (n >= 3)
-            primes.add(3);
-
-        for (int i = 4; i <= n; i++) {
-            if (isPrime[i] == true) {
-                primes.add(i);
-            }
-        }
-        return primes;
-
-    }
-
-    static List<Integer> sundaram(int n) {
-        boolean[] not_Prime = new boolean[n + 1];
-        // find the correct index
-        for (int i = 1; i <= (n - 2) / 2; i++) {
-            for (int j = i; i + j + 2 * i * j <= (n - 2) / 2; j++) {
-                not_Prime[i + j + 2 * i * j] = true;
-            }
-        }
-        List<Integer> primes = new ArrayList<>();
-        if (n >= 2)
-            primes.add(2);
-        for (int i = 1; i <= (n - 2) / 2; i++) {
-            if (not_Prime[i] == false)
-                // add prime numbers except the correct index
-                primes.add(2 * i + 1);
-        }
-        return primes;
-
-    }
-
-    static List<Integer> atkin(int n) {
-        boolean[] isPrime = new boolean[n + 1];
-        int limit = (int) Math.sqrt(n);
-
-        for (int x = 1; x <= limit; x++) {
-            for (int y = 1; y <= limit; y++) {
-                int number = 4 * x * x + y * y;
-                if (number <= n && (number % 12 == 1 || number % 12 == 5)) {
-                    isPrime[number] = !isPrime[number];
-                }
-
-                number = 3 * x * x + y * y;
-                if (number <= n && number % 12 == 7) {
-                    isPrime[number] = !isPrime[number];
-                }
-
-                number = 3 * x * x - y * y;
-                if (x > y && number <= n && number % 12 == 11) {
-                    isPrime[number] = !isPrime[number];
-                }
-            }
-        }
-        for (int i = 5; i <= limit; i++) {
-            if (isPrime[i]) {
-                int square = i * i;
-                for (int j = square; j <= n; j += square) {
-                    isPrime[j] = false;
-                }
-            }
-        }
-        List<Integer> primes = new ArrayList<>();
-        if (n >= 2) {
-            primes.add(2);
-        }
-        if (n >= 3) {
-            primes.add(3);
-        }
-
-        for (int i = 5; i <= n; i++) {
-            if (isPrime[i]) {
-                primes.add(i);
-            }
-        }
-
-        return primes;
-    }
-
-    /*
-     * Here is the Output of prime numbers
-     * =========================================
-     */
-    static void prime_number_output(Scanner user) {
-        int n = prime_number_input(user);
-        // eratosthenes
-        long startE = System.nanoTime();
-        List<Integer> eratosthenes_algorithm = eratosthenes(n);
-        long endE = System.nanoTime();
-        double eratosthenes_time = (endE - startE) / 1_000_000.0;
-        // sundaram
-        long startS = System.nanoTime();
-        List<Integer> sundaram_algorithm = sundaram(n);
-        long endS = System.nanoTime();
-        double sundaram_time = (endS - startS) / 1_000_000.0;
-
-        // atkin
-        long startA = System.nanoTime();
-        List<Integer> atkin_algorithm = atkin(n);
-        long endA = System.nanoTime();
-        double atkin_time = (endA - startA) / 1_000_000.0;
-        System.out.println("========Prime Number Genreation ========");
-        System.out.println("Generating Prime Numbers up to " + n);
-        System.out.println("Eratosthenes algorithm: \nfirst 3: " + eratosthenes_algorithm.subList(0, 3) + "\nLast 2: "
-                + eratosthenes_algorithm.subList(eratosthenes_algorithm.size() - 2, eratosthenes_algorithm.size()));
-        System.out.println("Execution time: " + eratosthenes_time);
-        System.out.println("Sundaram algorithm: \nfirst 3: " + sundaram_algorithm.subList(0, 3) + "\nLast 2: "
-                + sundaram_algorithm.subList(sundaram_algorithm.size() - 2, sundaram_algorithm.size()));
-        System.out.println("Execution time: " + sundaram_time);
-        System.out.println("Atkin algorithm: " + "\nfirst 3: " + atkin_algorithm.subList(0, 3) + "\nLast 2: "
-                + atkin_algorithm.subList(atkin_algorithm.size() - 2, atkin_algorithm.size()));
-        System.out.println("Execution time: " + atkin_time);
-        user.nextLine();
-    }
-
-    static void evaluate_expression(Scanner user) {
-        System.out.println("Enter a valid expression (use + - x : and parentheses):");
-        String expr = user.nextLine().replaceAll("\\s+", "");
-
-        // simple validation
-        if (!expr.matches("[0-9x:+\\-()]+")) {
-            System.err.println("Invalid characters! Try again.");
-            return;
-        }
-
-        if (!isParenthesesBalanced(expr)) {
-            System.err.println("Unbalanced parentheses! Try again.");
-            return;
-        }
-
-        expr = expr.replace("x", "*").replace(":", "/");
-
-        System.out.println("Step-by-step evaluation:");
-        System.out.println(simplify(expr));
-    }
-
-    static boolean isParenthesesBalanced(String expr) {
-        int count = 0;
-        for (char c : expr.toCharArray()) {
-            if (c == '(')
-                count++;
-            else if (c == ')')
-                count--;
-            if (count < 0)
-                return false;
-        }
-        return count == 0;
-    }
-
-    static double evalSimple(String expr) {
-        // evaluate a no-parentheses, basic expression left to right with */ before +-
-        List<Double> nums = new ArrayList<>();
-        List<Character> ops = new ArrayList<>();
-        StringBuilder num = new StringBuilder();
-
-        for (int i = 0; i < expr.length(); i++) {
-            char c = expr.charAt(i);
-            if (Character.isDigit(c) || c == '.') {
-                num.append(c);
-            } else {
-                nums.add(Double.parseDouble(num.toString()));
-                num.setLength(0);
-                ops.add(c);
-            }
-        }
-        nums.add(Double.parseDouble(num.toString()));
-
-        // handle * and /
-        for (int i = 0; i < ops.size();) {
-            char op = ops.get(i);
-            if (op == '*' || op == '/') {
-                double a = nums.get(i), b = nums.get(i + 1);
-                double res = (op == '*') ? a * b : a / b;
-                nums.set(i, res);
-                nums.remove(i + 1);
-                ops.remove(i);
-            } else
-                i++;
-        }
-
-        // handle + and -
-        double result = nums.get(0);
-        for (int i = 0; i < ops.size(); i++) {
-            char op = ops.get(i);
-            double b = nums.get(i + 1);
-            if (op == '+')
-                result += b;
-            else
-                result -= b;
-        }
-        return result;
-    }
-
-    static String simplify(String expr) {
-        // handle parentheses recursively
-        int open = expr.lastIndexOf('(');
-        if (open != -1) {
-            int close = expr.indexOf(')', open);
-            String inside = expr.substring(open + 1, close);
-            double val = evalSimple(inside);
-            String newExpr = expr.substring(0, open) + val + expr.substring(close + 1);
-            System.out.println("= " + newExpr);
-            return simplify(newExpr);
-        }
-
-        double finalVal = evalSimple(expr);
-        System.out.println("= " + finalVal);
-        return String.valueOf(finalVal);
-    }
-
-    static void optionB(Scanner user) {
-        boolean breaker = true;
-        while (breaker) {
-            System.out.println("[A]Prime Numbers");
-            System.out.println("[B]Step-by-step Eveluation of Expression");
-            System.out.println("[C]Return to Main Menu");
-            // change string to char
-            String input = user.nextLine();
-            if (input.length() != 1) {
-                System.out.println("Invalid input! Please enter only a single character: A, B, C.");
-                continue;
-            }
-            char charinput = Character.toUpperCase(input.charAt(0));
-            switch (charinput) {
-                case 'A':
-                    prime_number_output(user);
-                    break;
-                case 'B':
-                    evaluate_expression(user);
-                    break;
-                case 'C':
-                    breaker = false;
-                    break;
-                default:
-                    System.err.println("Invalid input! Please enter a signle character: A, B, C");
-            }
-
-        }
-    }
-
     static boolean selectionmenu(Scanner user) {
         System.out.println("[A]Primary School");
         System.out.println("[B]Secondary School");
         System.out.println("[C]High School");
         System.out.println("[D]University");
         System.out.println("[E]Terminate");
-
-        String input = user.nextLine();
-
-        if (input.length() != 1) {
-            System.out.println("Invalid input! Please enter only a single character: A, B, C, D, or E.");
-            return true;
-        }
-
-        char charinput = Character.toUpperCase(input.charAt(0));
-
+        char charinput = Character.toUpperCase(user.next().charAt(0));
+        user.nextLine();
         switch (charinput) {
             case 'A':
                 optionA(user);
