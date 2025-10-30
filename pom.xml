@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>my-java-project</artifactId>
+    <artifactId>Project_v2</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>My Java Project</name>
+    <name>Project_v2</name>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
