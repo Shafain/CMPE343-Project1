@@ -258,7 +258,7 @@ public class Project_v2 {
     }
 
     static int prime_number_input(Scanner user) {
-        System.out.println("Enter an integer n ≥ 12:");
+        System.out.println("Enter an integer n >= 12:");
         int n, max = 1000;
         while (true) {
             try {
@@ -422,7 +422,7 @@ public class Project_v2 {
         expr = expr.replaceAll("\\s+", "");
 
         // check if the input contains only allowed characters
-        if (!expr.matches("[0-9()+\\-x:]+")) {
+        if (!expr.matches("[0-9()+\\-x*/:]+")) {
             System.out.println("Error: Only digits, + - x : and () are allowed.");
             return;
         }
@@ -1110,3 +1110,4 @@ public class Project_v2 {
         }
     }
 }
+
