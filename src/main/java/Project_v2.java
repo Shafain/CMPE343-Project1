@@ -52,26 +52,39 @@ public class Project_v2 {
     }
 
     static boolean isTurkishLetter(char c) {
-        // Check if character is a Turkish letter (uppercase or lowercase)
+
         String turkishLetters = "çÇğĞıİöÖşŞüÜ";
         return turkishLetters.indexOf(c) != -1 || Character.isLetter(c);
     }
+
+
+    static boolean containsLetter(String text) {
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            // у тебя уже есть isTurkishLetter(...) — давай её и используем
+            if (isTurkishLetter(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     static void optionA(Scanner user) {
         boolean breaker = true;
 
         while (breaker) {
 
-            System.out.println("[A]Age and Zodiac Sign Detector");
-            System.out.println("[B]Reverse the Words");
-            System.out.println("[C]Return to Main Menu");
+            System.out.println("[A]Age and Zodiac Sign Detector\n");
+            System.out.println("[B]Reverse the Words\n");
+            System.out.println("[C]Return to Main Menu\n");
             char charinput = Character.toUpperCase(user.next().charAt(0));
             user.nextLine();
             clearScreen();
 
             switch (charinput) {
                 case 'A':
-                    System.out.println("Input your year-month-day in the order: ");
+
                     age_and_zodiac(user);
 
                     break;
@@ -85,7 +98,7 @@ public class Project_v2 {
                     break;
 
                 default:
-                    System.err.println("Invalid input! Please enter a single character: A, B, C.");
+                    System.err.println("Invalid input! Please enter a single character: A, B, C.\n");
 
             }
         }
@@ -98,23 +111,23 @@ public class Project_v2 {
 
             case 1:
                 if (day >= 20) {
-                    System.out.println("Your sign is Aquarius");
+                    System.out.println("Your sign is Aquarius\n");
                 } else {
-                    System.out.println("Your sign is Capricon");
+                    System.out.println("Your sign is Capricon\n");
                 }
                 break;
             case 2:
                 if (day <= 18) {
-                    System.out.println("Your sign is Aquarius");
+                    System.out.println("Your sign is Aquarius\n");
                 } else {
-                    System.out.println("Your sign is Pisces");
+                    System.out.println("Your sign is Pisces\n");
                 }
                 break;
             case 3:
                 if (day <= 20) {
-                    System.out.println("Your sign is Pisces");
+                    System.out.println("Your sign is Pisces\n");
                 } else {
-                    System.out.println("Your sign is Aries");
+                    System.out.println("Your sign is Aries\n");
                 }
                 break;
             case 4:
@@ -126,107 +139,114 @@ public class Project_v2 {
                 break;
             case 5:
                 if (day <= 20) {
-                    System.out.println("Your sign is Taurus");
+                    System.out.println("Your sign is Taurus\n");
                 } else {
-                    System.out.println("Your sign is Gemini");
+                    System.out.println("Your sign is Gemini\n");
                 }
                 break;
             case 6:
                 if (day <= 21) {
-                    System.out.println("Your sign is Gemini");
+                    System.out.println("Your sign is Gemini\n");
                 } else {
-                    System.out.println("Your sign is Cancer");
+                    System.out.println("Your sign is Cancer\n");
                 }
                 break;
             case 7:
                 if (day <= 22) {
-                    System.out.println("Your sign is Cancer");
+                    System.out.println("Your sign is Cancer\n");
                 } else {
-                    System.out.println("Your sign is Leo");
+                    System.out.println("Your sign is Leo\n");
                 }
                 break;
             case 8:
                 if (day <= 22) {
-                    System.out.println("Your sign is Leo");
+                    System.out.println("Your sign is Leo\n");
                 } else {
-                    System.out.println("Your sign is Virgo");
+                    System.out.println("Your sign is Virgo\n");
                 }
                 break;
             case 9:
                 if (day <= 22) {
-                    System.out.println("Your sign is Virgo");
+                    System.out.println("Your sign is Virgo\n");
                 } else {
-                    System.out.println("Your sign is Libra");
+                    System.out.println("Your sign is Libra\n");
                 }
                 break;
             case 10:
                 if (day <= 22) {
-                    System.out.println("Your sign is Libra");
+                    System.out.println("Your sign is Libra\n");
                 } else {
-                    System.out.println("Your sign is Scorpio");
+                    System.out.println("Your sign is Scorpio\n");
                 }
                 break;
             case 11:
                 if (day <= 21) {
-                    System.out.println("Your sign is Scorpio");
+                    System.out.println("Your sign is Scorpio\n");
                 } else {
-                    System.out.println("Your sign is Sagittarius");
+                    System.out.println("Your sign is Sagittarius\n");
                 }
                 break;
             case 12:
                 if (day <= 21) {
-                    System.out.println("Your sign is Sagittarius");
+                    System.out.println("Your sign is Sagittarius\n");
                 } else {
-                    System.out.println("Your sign is Capricorn");
+                    System.out.println("Your sign is Capricorn\n");
                 }
                 break;
             default:
-                System.out.println("Something went wrong");
+                System.err.println("Something went wrong\n");
         }
     }
-
     static void age_and_zodiac(Scanner user) {
-        System.out.println("Please enter your birthday: yyyy-MM-dd");
-        String user_birth = user.nextLine();
-        try {
-            LocalDate time = LocalDate.now();
-            LocalDate birthDay = LocalDate.parse(user_birth, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            int user_year = birthDay.getYear();
-            int user_month = birthDay.getMonthValue();
-            int user_day = birthDay.getDayOfMonth();
+        while (true) {
+            System.out.println("Please enter your birthday: yyyy-MM-dd");
+            String user_birth = user.nextLine().trim();
 
-            int year = time.getYear();
-            int month = time.getMonthValue();
-            int day = time.getDayOfMonth();
+            try {
+                LocalDate time = LocalDate.now();
+                LocalDate birthDay = LocalDate.parse(user_birth, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                int user_year = birthDay.getYear();
+                int user_month = birthDay.getMonthValue();
+                int user_day = birthDay.getDayOfMonth();
 
-            boolean bornInFuture = false;
+                int year = time.getYear();
+                int month = time.getMonthValue();
+                int day = time.getDayOfMonth();
 
-            if (user_year > year) {
-                bornInFuture = true;
-            } else if (user_year == year && user_month > month) {
-                bornInFuture = true;
-            } else if (user_year == year && user_month == month && user_day > day) {
-                bornInFuture = true;
+                boolean bornInFuture = false;
+
+                if (user_year > year) {
+                    bornInFuture = true;
+                } else if (user_year == year && user_month > month) {
+                    bornInFuture = true;
+                } else if (user_year == year && user_month == month && user_day > day) {
+                    bornInFuture = true;
+                }
+
+                if (bornInFuture) {
+                    System.err.println("You can't be born in the future!\n");
+
+                    continue;
+                }
+
+                int age = year - user_year;
+
+                if (month < user_month || (month == user_month && day < user_day)) {
+                    age--;
+                }
+
+                zodiac_sign(user_day, user_month);
+                System.out.println("Your age is: " + age);
+                // тут всё ок — можно выйти из цикла и вернуться в меню
+                break;
+
+            } catch (Exception e) {
+                System.err.println("\nInvalid format! Please type in: (yyyy-MM-dd)\n");
+
             }
-
-            if (bornInFuture) {
-                System.out.println("You can't be born in the future!");
-                return;
-            }
-
-            int age = year - user_year;
-
-            if (month < user_month || (month == user_month && day < user_day)) {
-                age--;
-            }
-
-            zodiac_sign(user_day, user_month);
-            System.out.println("Your age is: " + age);
-
-        } catch (Exception e) {
-            System.err.println("Invalid format! Please type in: (yyyy-month-day)");
         }
     }
+
 
     static String reverse_the_word(String word) {
 
@@ -235,13 +255,13 @@ public class Project_v2 {
         int right = word.length() - 1;
 
         while (left < right) {
-            // Skip non-letter (including punctuation, digits, etc.)
+
             if (!isTurkishLetter(chars[left])) {
                 left++;
             } else if (!isTurkishLetter(chars[right])) {
                 right--;
             } else {
-                // Swap valid Turkish or normal letters
+
                 char temp = chars[left];
                 chars[left] = chars[right];
                 chars[right] = temp;
@@ -253,28 +273,46 @@ public class Project_v2 {
     }
 
     static void reverse_the_text(Scanner user) {
-        System.out.println("Enter text to reverse:");
-        String text = user.nextLine();
+        while (true) {
+            System.out.println("Enter text to reverse:\n");
+            String text = user.nextLine();
 
-        String[] words = text.split(" ");
-        StringBuilder result = new StringBuilder();
 
-        for (int i = 0; i < words.length; i++) {
-            result.append(reverse_the_word(words[i]));
-            if (i < words.length - 1) {
-                result.append(" ");
+            if (text.trim().isEmpty()) {
+                System.err.println("Invalid input! The text cannot be empty.\n");
+                continue;
             }
+
+
+            if (!containsLetter(text)) {
+                System.err.println("Invalid input! Please enter a text that contains letters, not only digits.\n");
+                continue;
+            }
+
+
+            String[] words = text.split(" ");
+            StringBuilder result = new StringBuilder();
+
+            for (int i = 0; i < words.length; i++) {
+                result.append(reverse_the_word(words[i]));
+                if (i < words.length - 1) {
+                    result.append(" ");
+                }
+            }
+
+            System.out.println("Reversed Text:\n");
+            System.out.println(result.toString());
+
+            break;
         }
-        System.out.println("Reversed Text:");
-        System.out.println(result.toString());
     }
 
     static void optionB(Scanner user) {
         boolean breaker = true;
         while (breaker) {
-            System.out.println("[A]Prime Numbers");
-            System.out.println("[B]Step-by-step Eveluation of Expression");
-            System.out.println("[C]Return to Main Menu");
+            System.out.println("[A]Prime Numbers\n");
+            System.out.println("[B]Step-by-step Eveluation of Expression\n");
+            System.out.println("[C]Return to Main Menu\n");
             char charinput = Character.toUpperCase(user.next().charAt(0));
             user.nextLine();
             clearScreen();
@@ -290,30 +328,30 @@ public class Project_v2 {
                     breaker = false;
                     break;
                 default:
-                    System.err.println("Invalid input! Please enter a signle character: A, B, C");
+                    System.err.println("Invalid input! Please enter a signle character: A, B, C\n");
             }
         }
     }
 
     static int prime_number_input(Scanner user) {
-        System.out.println("Enter an integer n >= 12:");
+        System.out.println("Enter an integer n >= 12:\n");
         int n, max = 1000;
         while (true) {
             try {
                 n = user.nextInt();
             } catch (Exception e) {
-                System.err.println("Invalid input! Please enter an integer.");
+                System.err.println("Invalid input! Please enter an integer.\n");
                 user.nextLine();
                 continue;
             }
             if (n > max) {
-                System.err.println("Too large! limit is 1000");
-                System.out.println("Please enter a value between 12 and 1000:");
+                System.err.println("Too large! limit is 1000\n");
+                System.out.println("Please enter a value between 12 and 1000:\n");
                 continue;
             }
 
             if (n < 12) {
-                System.err.println("Invalid input! Please enter a number ≥ 12.");
+                System.err.println("Invalid input! Please enter a number ≥ 12.\n");
                 continue;
             }
             return n;
@@ -416,10 +454,7 @@ public class Project_v2 {
         return primes;
     }
 
-    /*
-     * Here is the Output of prime numbers
-     * =========================================
-     */
+
     static void prime_number_output(Scanner user) {
         int n = prime_number_input(user);
         // eratosthenes
@@ -438,7 +473,7 @@ public class Project_v2 {
         List<Integer> atkin_algorithm = atkin(n);
         long endA = System.nanoTime();
         double atkin_time = (endA - startA) / 1_000_000.0;
-        System.out.println("========Prime Number Genreation ========");
+        System.out.println("========Prime Number Genreation ========\n");
 
         System.out.println("\nEratosthenes algorithm: \nfirst 3: " + eratosthenes_algorithm.subList(0, 3) + "\nLast 2: "
                 + eratosthenes_algorithm.subList(eratosthenes_algorithm.size() - 2, eratosthenes_algorithm.size()));
@@ -452,38 +487,42 @@ public class Project_v2 {
         user.nextLine();
     }
 
-    /*
-     * =====================================================================
-     * ====================PART 2 of PART B================================
-     * ====================================================================
-     */
+
     static void evaluate_expression(Scanner user) {
-        System.out.println("Enter an expression (use + - x : and parentheses):");
-        String expr = user.nextLine();
+        while (true) {
+            System.out.println("Enter an expression (use + - x : and parentheses):\n");
+            String expr = user.nextLine();
 
-        // remove spaces
-        expr = expr.replaceAll("\\s+", "");
 
-        // check if the input contains only allowed characters
-        if (!expr.matches("[0-9()+\\-x*/:]+")) {
-            System.out.println("Error: Only digits, + - x : and () are allowed.");
-            return;
+            expr = expr.replaceAll("\\s+", "");
+
+
+            if (!expr.matches("[0-9()+\\-x*/:]+")) {
+                System.err.println("Error: Only digits, + - x : and () are allowed.\n");
+
+                continue;
+            }
+
+
+            if (!isParenthesesBalanced(expr)) {
+                System.err.println("Error: Parentheses are not balanced.\n");
+
+                continue;
+            }
+
+
+            expr = expr.replace("x", "*").replace(":", "/");
+
+            System.out.println("Solving step by step...\n");
+
+
+            System.out.println("= " + simplify(expr));
+
+
+            break;
         }
-
-        // quick check for balanced brackets, otherwise parsing breaks
-        if (!isParenthesesBalanced(expr)) {
-            System.out.println("Error: Parentheses are not balanced.");
-            return;
-        }
-
-        // convert normal symbols to Java-friendly ones
-        expr = expr.replace("x", "*").replace(":", "/");
-
-        System.out.println("Solving step by step...");
-
-        // start simplifying the expression until nothing is left
-        System.out.println("= " + simplify(expr));
     }
+
 
     static boolean isParenthesesBalanced(String expr) {
         int counter = 0;
@@ -494,9 +533,9 @@ public class Project_v2 {
                 counter--;
 
             if (counter < 0)
-                return false; // closed too early
+                return false;
         }
-        return counter == 0; // 0 means balanced
+        return counter == 0;
     }
 
     static double evalSimple(String expr) {
@@ -520,7 +559,7 @@ public class Project_v2 {
         }
         numbers.add(Double.parseDouble(currentNumber.toString()));
 
-        // first solve * and /
+
         for (int i = 0; i < ops.size();) {
             char op = ops.get(i);
             if (op == '*' || op == '/') {
@@ -534,7 +573,7 @@ public class Project_v2 {
             }
         }
 
-        // now solve + and -
+
         double result = numbers.get(0);
         for (int i = 0; i < ops.size(); i++) {
             if (ops.get(i) == '+')
@@ -546,7 +585,7 @@ public class Project_v2 {
         return result;
     }
 
-    // Recursively solve inside parentheses first
+
     static String simplify(String expr) {
         int open = expr.lastIndexOf('(');
         if (open != -1) {
@@ -563,7 +602,7 @@ public class Project_v2 {
             return simplify(newExpr);
         }
 
-        // final evaluation (no parentheses left)
+
         double finalVal = evalSimple(expr);
         System.out.println("= " + finalVal);
         return String.valueOf(finalVal);
@@ -574,8 +613,8 @@ public class Project_v2 {
 
         while (breaker) {
             System.out.println("\n[A] Statistical information about an Array");
-            System.out.println("[B] Distance between Two Arrays");
-            System.out.println("[C] Return to Main Menu");
+            System.out.println("[B] Distance between Two Arrays\n");
+            System.out.println("[C] Return to Main Menu\n");
             char charinput = Character.toUpperCase(user.next().charAt(0));
             user.nextLine();
             clearScreen();
@@ -590,7 +629,7 @@ public class Project_v2 {
                     breaker = false;
                     break;
                 default:
-                    System.err.println("Invalid input! Please choose again.");
+                    System.err.println("Invalid input! Please choose again.\n");
             }
         }
     }
@@ -638,16 +677,16 @@ public class Project_v2 {
         int size = 0;
 
         while (true) {
-            System.out.print("Enter the array size (1-20): ");
+            System.out.print("Enter the array size (1-20): \n");
             if (user.hasNextInt()) {
                 size = user.nextInt();
                 if (size > 0 && size <= 20) {
                     break;
                 } else {
-                    System.out.println("Invalid size! Must be between 1 and 20.");
+                    System.err.println("Invalid size! Must be between 1 and 20.\n");
                 }
             } else {
-                System.out.println("Invalid input! Enter a number.");
+                System.err.println("Invalid input! Enter a number.\n");
                 user.next();
             }
         }
@@ -711,9 +750,9 @@ public class Project_v2 {
     static void dist_btwn_arr(Scanner user) {
         int dimension = 0;
         while (true) {
-            System.out.println("Enter the dimension (1-20): ");
+            System.out.println("Enter the dimension (1-20): \n");
             if (!user.hasNextInt()) {
-                System.out.println("Invalid input! Please enter a number.");
+                System.err.println("Invalid input! Please enter a number.\n");
                 user.nextLine();
                 continue;
             }
@@ -722,9 +761,9 @@ public class Project_v2 {
             user.nextLine();
 
             if (dimension <= 0) {
-                System.out.println("Dimension must be positive!");
+                System.err.println("Dimension must be positive!\n");
             } else if (dimension > 20) {
-                System.out.println("Dimension cannot be more than 20!");
+                System.err.println("Dimension cannot be more than 20!\n");
             } else {
                 break;
             }
@@ -756,7 +795,7 @@ public class Project_v2 {
         boolean breaker = true;
 
         while (breaker) {
-            System.out.println("This is game Connect 4, please choose the size of the board: ");
+            System.out.println("This is game Connect 4, please choose the size of the board: \n");
             System.out.println("[A]5 X 4");
             System.out.println("[B]6 X 5");
             System.out.println("[C]7 X 6");
@@ -778,7 +817,7 @@ public class Project_v2 {
                     breaker = false;
                     break;
                 default:
-                    System.err.println("Invalid input! Please choose again.");
+                    System.err.println("Invalid input! Please choose again.\n");
             }
         }
     }
@@ -790,23 +829,23 @@ public class Project_v2 {
         boolean gameOver = false;
 
         while (!gameOver) {
-            // Always prompt the player
+
             String currentPlayer = playerOneTurn ? "Player 1" : "Player 2";
             System.out.println(currentPlayer + ", choose a column (1-" + cols + ") or Q to quit: ");
 
             String input = user.nextLine().trim();
 
-            // Check for quitting
+
             if (input.equalsIgnoreCase("Q")) {
-                System.out.println(currentPlayer + " quit the game. Exiting...");
-                break; // exit the game loop
+                System.out.println(currentPlayer + " quit the game. Exiting...\n");
+                break;
             }
 
             int chosenColumn;
             try {
                 chosenColumn = Integer.parseInt(input) - 1;
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input! Please enter a number or Q to quit.");
+                System.err.println("Invalid input! Please enter a number or Q to quit.\n");
                 continue;
             }
 
@@ -815,7 +854,7 @@ public class Project_v2 {
                     && placeDisc(board, chosenColumn, currentDisc);
 
             if (!validMove) {
-                System.out.println("Column full or invalid! Try again.");
+                System.err.println("Column full or invalid! Try again.\n");
                 continue;
             }
 
@@ -966,7 +1005,7 @@ public class Project_v2 {
         if (checkWin(board, PLAYER))
             return -1000;
         if (isFull(board) || depth == 0)
-            return 0; // Simple heuristic: 0
+            return 0;
 
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
@@ -1002,13 +1041,13 @@ public class Project_v2 {
         boolean breaker = true;
 
         while (breaker) {
-            System.out.println("Excellent! Now choose the Game Mode: ");
-            System.out.println("[A]Single Player vs Computer");
-            System.out.println("[B]Two-players");
-            System.out.println("[C]Return to Main Menu");
+            System.out.println("Excellent! Now choose the Game Mode: \n");
+            System.out.println("[A]Single Player vs Computer\n");
+            System.out.println("[B]Two-players\n");
+            System.out.println("[C]Return to Main Menu\n");
             String game_mode = user.nextLine();
             if (game_mode.length() != 1) {
-                System.out.println("Invalid input! Please enter only a single character: A, B, or C");
+                System.err.println("Invalid input! Please enter only a single character: A, B, or C\n");
                 continue;
             }
             char game_ch = Character.toUpperCase(game_mode.charAt(0));
@@ -1051,10 +1090,10 @@ public class Project_v2 {
                 optionD(user);
                 break;
             case 'E':
-                System.err.println("Terminating the program...");
+                System.err.println("Terminating the program...\n");
                 return false;
             default:
-                System.err.println("Invalid input! Please choose again.");
+                System.err.println("Invalid input! Please choose again.\n");
         }
         return true;
     }
@@ -1197,7 +1236,7 @@ public class Project_v2 {
                     "(_____)-----------------------------------------------------------------------------(_____)");
 
             System.out.println(RESET);
-            System.out.println("Hello choose one of these: ");
+            System.out.println("Hello choose one of these: \n");
             while (breaker) {
                 breaker = selectionmenu(user);
             }
