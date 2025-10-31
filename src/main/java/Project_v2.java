@@ -611,9 +611,12 @@ public class Project_v2 {
         return sum / size;
     }
 
-    static double geo_mean(int size, double[] stat_arr) {
+    static Double geo_mean(int size, double[] stat_arr) {
         double product = 1.0;
         for (int i = 0; i < size; i++) {
+            if (stat_arr[i] <= 0) {
+                return null;
+            }
             product *= stat_arr[i];
         }
         return Math.pow(product, 1.0 / size);
@@ -662,7 +665,12 @@ public class Project_v2 {
 
         System.out.println("Median: " + median(size, stat_arr));
         System.out.println("Arithmetic mean: " + arith_mean(size, stat_arr));
-        System.out.println("Geometric mean: " + geo_mean(size, stat_arr));
+        Double gmean = geo_mean(size, stat_arr);
+        if (gmean == null) {
+            System.out.println("Geometric mean: Not defined (contains non-positive numbers)");
+        } else {
+            System.out.println("Geometric mean: " + gmean);
+        }
         System.out.println("Harmonic mean: " + harmonic_mean(size, stat_arr));
     }
 
