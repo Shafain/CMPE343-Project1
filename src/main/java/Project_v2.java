@@ -411,15 +411,15 @@ public class Project_v2 {
         long endA = System.nanoTime();
         double atkin_time = (endA - startA) / 1_000_000.0;
         System.out.println("========Prime Number Genreation ========");
-        System.out.println("Generating Prime Numbers up to " + n);
-        System.out.println("Eratosthenes algorithm: \nfirst 3: " + eratosthenes_algorithm.subList(0, 3) + "\nLast 2: "
+
+        System.out.println("\nEratosthenes algorithm: \nfirst 3: " + eratosthenes_algorithm.subList(0, 3) + "\nLast 2: "
                 + eratosthenes_algorithm.subList(eratosthenes_algorithm.size() - 2, eratosthenes_algorithm.size()));
         System.out.println("Execution time: " + eratosthenes_time);
-        System.out.println("Sundaram algorithm: \nfirst 3: " + sundaram_algorithm.subList(0, 3) + "\nLast 2: "
+        System.out.println("\nSundaram algorithm: \nfirst 3: " + sundaram_algorithm.subList(0, 3) + "\nLast 2: "
                 + sundaram_algorithm.subList(sundaram_algorithm.size() - 2, sundaram_algorithm.size()));
         System.out.println("Execution time: " + sundaram_time);
-        System.out.println("Atkin algorithm: " + "\nfirst 3: " + atkin_algorithm.subList(0, 3) + "\nLast 2: "
-                + atkin_algorithm.subList(atkin_algorithm.size() - 2, atkin_algorithm.size()));
+        System.out.println("\nAtkin algorithm: " + "\nfirst 3: " + atkin_algorithm.subList(0, 3) + "\nLast 2: "
+                + atkin_algorithm.subList(atkin_algorithm.size() - 2, atkin_algorithm.size()) + "\n");
         System.out.println("Execution time: " + atkin_time);
         user.nextLine();
     }
@@ -1128,5 +1128,6 @@ public class Project_v2 {
         }
     }
 }
+
 
 
