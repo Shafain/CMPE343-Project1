@@ -7,6 +7,15 @@ import java.util.Scanner;
 
 public class Project_v2 {
 
+    static final String GREEN = "\u001B[32m";
+    static final String BLUE = "\u001B[34m";
+    static final String MAGENTA = "\u001B[35m";
+    static final String WHITE = "\u001B[37m";
+    static final String RESET = "\u001B[0m";
+    static final String RED = "\u001B[31m";
+    static final String YELLOW = "\u001B[33m";
+    static final String CYAN = "\u001B[36m";
+
     static final char PLAYER = 'X';
     static final char AI = 'O';
     static final int MAX_DEPTH = 3;
@@ -747,48 +756,64 @@ public class Project_v2 {
         boolean gameOver = false;
 
         while (!gameOver) {
-            printBoard(board);
-            if (playerOneTurn || !vsComputer) {
-                String currentPlayer = playerOneTurn ? "Player 1" : "Player 2";
-                System.out.println(currentPlayer + ", choose a column (1-" + cols + "): ");
+            // Always prompt the player
+            String currentPlayer = playerOneTurn ? "Player 1" : "Player 2";
+            System.out.println(currentPlayer + ", choose a column (1-" + cols + ") or Q to quit: ");
 
-                int chosenColumn;
+            String input = user.nextLine().trim();
 
-                try {
-                    chosenColumn = Integer.parseInt(user.nextLine()) - 1;
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid input! Please enter a number.");
-                    continue;
-                }
-
-                char currentDisc = playerOneTurn ? PLAYER : 'O';
-                boolean validMove = (chosenColumn >= 0 && chosenColumn < cols)
-                        && placeDisc(board, chosenColumn, currentDisc);
-
-                if (!validMove) {
-                    System.out.println("Column full or invalid! Try again.");
-                    continue;
-                }
-
-            } else {
-                int aiChosenColumn = getBestMove(board, MAX_DEPTH);
-                placeDisc(board, aiChosenColumn, AI);
-                System.out.println("Computer chose column " + (aiChosenColumn + 1));
+            // Check for quitting
+            if (input.equalsIgnoreCase("Q")) {
+                System.out.println(currentPlayer + " quit the game. Exiting...");
+                break; // exit the game loop
             }
 
-            if (checkWin(board, playerOneTurn ? PLAYER : (vsComputer ? AI : 'O'))) {
-                printBoard(board);
-                System.out.println((playerOneTurn ? "Player 1" : (vsComputer ? "Computer" : "Player 2")) + " wins!");
+            int chosenColumn;
+            try {
+                chosenColumn = Integer.parseInt(input) - 1;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a number or Q to quit.");
+                continue;
+            }
+
+            char currentDisc = playerOneTurn ? PLAYER : 'O';
+            boolean validMove = (chosenColumn >= 0 && chosenColumn < cols)
+                    && placeDisc(board, chosenColumn, currentDisc);
+
+            if (!validMove) {
+                System.out.println("Column full or invalid! Try again.");
+                continue;
+            }
+
+            // If vsComputer and it's Player 1's turn, make the computer move immediately
+            if (vsComputer && playerOneTurn) {
+                int aiChosenColumn = getBestMove(board, MAX_DEPTH);
+                placeDisc(board, aiChosenColumn, AI);
+            }
+
+            // Print the board after moves
+            printBoard(board);
+
+            // Check for win/draw
+            if (checkWin(board, PLAYER)) {
+                System.out.println("Player 1 wins!");
+                gameOver = true;
+            } else if (checkWin(board, AI) && vsComputer) {
+                System.out.println("Computer wins!");
+                gameOver = true;
+            } else if (!vsComputer && checkWin(board, 'O')) {
+                System.out.println("Player 2 wins!");
                 gameOver = true;
             } else if (isFull(board)) {
-                printBoard(board);
                 System.out.println("It's a draw!");
                 gameOver = true;
             }
 
-            playerOneTurn = !playerOneTurn;
+            // Switch turn only in 2-player mode
+            if (!vsComputer) playerOneTurn = !playerOneTurn;
         }
     }
+
 
     static void initializeBoard(char[][] board) {
         for (int i = 0; i < board.length; i++)
@@ -797,13 +822,44 @@ public class Project_v2 {
     }
 
     static void printBoard(char[][] board) {
-        for (char[] row : board) {
-            for (char c : row)
-                System.out.print(c + " ");
-            System.out.println();
+        int rows = board.length;
+        int cols = board[0].length;
+
+        // Top border
+        System.out.print("  ");
+        for (int c = 0; c < cols; c++) {
+            System.out.print("==="); // each cell width = 3
         }
-        for (int i = 1; i <= board[0].length; i++)
-            System.out.print(i + " ");
+        System.out.println("=");
+
+        // Board rows
+        for (int r = 0; r < rows; r++) {
+            System.out.print("|");
+            for (int c = 0; c < cols; c++) {
+                char cell = board[r][c];
+                if (cell == PLAYER) {
+                    System.out.print(" " + RED + "X" + RESET + " ");
+                } else if (cell == AI) {
+                    System.out.print(" " + YELLOW + "O" + RESET + " ");
+                } else {
+                    System.out.print(" . ");
+                }
+            }
+            System.out.println("|");
+        }
+
+        // Bottom border
+        System.out.print("  ");
+        for (int c = 0; c < cols; c++) {
+            System.out.print("==="); 
+        }
+        System.out.println("=");
+
+        // Column numbers
+        System.out.print("  ");
+        for (int i = 1; i <= cols; i++) {
+            System.out.print(" " + CYAN + i + RESET + " ");
+        }
         System.out.println("\n");
     }
 
@@ -971,14 +1027,6 @@ public class Project_v2 {
     public static void main(String[] args) {
         try (Scanner user = new Scanner(System.in)) {
             boolean breaker = true;
-            final String RESET = "\u001B[0m";
-            final String RED = "\u001B[31m";
-            final String GREEN = "\u001B[32m";
-            final String YELLOW = "\u001B[33m";
-            final String BLUE = "\u001B[34m";
-            final String MAGENTA = "\u001B[35m";
-            final String CYAN = "\u001B[36m";
-            final String WHITE = "\u001B[37m";
 
             System.out.println(RED + "   _      _      _      _      _      _      _      _      _      _   " + RESET);
             System.out
