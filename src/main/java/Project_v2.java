@@ -32,9 +32,15 @@ public class Project_v2 {
         return turkishLetters.indexOf(c) != -1 || Character.isLetter(c);
     }
 
+    static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
     static void optionA(Scanner user) {
         boolean breaker = true;
         while (breaker) {
+
             System.out.println("[A]Age and Zodiac Sign Detector");
             System.out.println("[B]Reverse the Words");
             System.out.println("[C]Return to Main Menu");
@@ -56,10 +62,13 @@ public class Project_v2 {
                     System.err.println("Invalid input! Please enter a single character: A, B, C.");
             }
         }
+
     }
 
     static void zodiac_sign(int day, int month) {
+
         switch (month) {
+
             case 1:
                 if (day >= 20) {
                     System.out.println("Your sign is Aquarius");
@@ -193,6 +202,7 @@ public class Project_v2 {
     }
 
     static String reverse_the_word(String word) {
+
         char[] chars = word.toCharArray();
         int left = 0;
         int right = word.length() - 1;
@@ -414,11 +424,16 @@ public class Project_v2 {
         user.nextLine();
     }
 
+    /*
+     * =====================================================================
+     * ====================PART 2 of PART B================================
+     * ====================================================================
+     */
     static void evaluate_expression(Scanner user) {
         System.out.println("Enter an expression (use + - x : and parentheses):");
         String expr = user.nextLine();
 
-        // remove spaces just to be safe
+        // remove spaces
         expr = expr.replaceAll("\\s+", "");
 
         // check if the input contains only allowed characters
@@ -461,9 +476,13 @@ public class Project_v2 {
         List<Character> ops = new ArrayList<>();
         StringBuilder currentNumber = new StringBuilder();
 
-        // split into separate numbers and operators
-        for (char c : expr.toCharArray()) {
+        for (int i = 0; i < expr.length(); i++) {
+            char c = expr.charAt(i);
+
             if (Character.isDigit(c) || c == '.') {
+                currentNumber.append(c);
+            } else if (c == '-' && (i == 0 || "+-*/(".indexOf(expr.charAt(i - 1)) != -1)) {
+                // unary minus
                 currentNumber.append(c);
             } else {
                 numbers.add(Double.parseDouble(currentNumber.toString()));
@@ -479,7 +498,6 @@ public class Project_v2 {
             if (op == '*' || op == '/') {
                 double result = (op == '*') ? numbers.get(i) * numbers.get(i + 1)
                         : numbers.get(i) / numbers.get(i + 1);
-
                 numbers.set(i, result);
                 numbers.remove(i + 1);
                 ops.remove(i);
@@ -1110,4 +1128,5 @@ public class Project_v2 {
         }
     }
 }
+
 
