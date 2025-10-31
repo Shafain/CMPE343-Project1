@@ -35,6 +35,22 @@ public class Project_v2 {
         return array;
     }
 
+    static void clearScreen() {
+        try {
+            if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+
+            for (int i = 0; i<50; i++){
+                System.out.println();
+            }
+        }
+    }
+
     static boolean isTurkishLetter(char c) {
         // Check if character is a Turkish letter (uppercase or lowercase)
         String turkishLetters = "çÇğĞıİöÖşŞüÜ";
@@ -43,24 +59,31 @@ public class Project_v2 {
 
     static void optionA(Scanner user) {
         boolean breaker = true;
+
         while (breaker) {
+
             System.out.println("[A]Age and Zodiac Sign Detector");
             System.out.println("[B]Reverse the Words");
             System.out.println("[C]Return to Main Menu");
             char charinput = Character.toUpperCase(user.next().charAt(0));
             user.nextLine();
+            clearScreen();
 
             switch (charinput) {
                 case 'A':
                     System.out.println("Input your year-month-day in the order: ");
                     age_and_zodiac(user);
+
                     break;
                 case 'B':
                     reverse_the_text(user);
+
                     break;
                 case 'C':
+
                     breaker = false;
                     break;
+
                 default:
                     System.err.println("Invalid input! Please enter a single character: A, B, C.");
 
@@ -242,7 +265,7 @@ public class Project_v2 {
                 result.append(" ");
             }
         }
-
+        System.out.println("Reversed Text:");
         System.out.println(result.toString());
     }
 
@@ -254,6 +277,7 @@ public class Project_v2 {
             System.out.println("[C]Return to Main Menu");
             char charinput = Character.toUpperCase(user.next().charAt(0));
             user.nextLine();
+            clearScreen();
 
             switch (charinput) {
                 case 'A':
@@ -554,6 +578,7 @@ public class Project_v2 {
             System.out.println("[C] Return to Main Menu");
             char charinput = Character.toUpperCase(user.next().charAt(0));
             user.nextLine();
+            clearScreen();
             switch (charinput) {
                 case 'A':
                     stat_info_arr(user);
@@ -730,6 +755,7 @@ public class Project_v2 {
             System.out.println("[D]Return to Main Menu");
             char charinput = Character.toUpperCase(user.next().charAt(0));
             user.nextLine();
+            clearScreen();
             switch (charinput) {
                 case 'A':
                     game_mode(user, 5, 4);
@@ -810,10 +836,10 @@ public class Project_v2 {
             }
 
             // Switch turn only in 2-player mode
-            if (!vsComputer) playerOneTurn = !playerOneTurn;
+            if (!vsComputer)
+                playerOneTurn = !playerOneTurn;
         }
     }
-
 
     static void initializeBoard(char[][] board) {
         for (int i = 0; i < board.length; i++)
@@ -851,7 +877,7 @@ public class Project_v2 {
         // Bottom border
         System.out.print("  ");
         for (int c = 0; c < cols; c++) {
-            System.out.print("==="); 
+            System.out.print("===");
         }
         System.out.println("=");
 
@@ -1002,6 +1028,7 @@ public class Project_v2 {
         System.out.println("[E]Terminate");
         char charinput = Character.toUpperCase(user.next().charAt(0));
         user.nextLine();
+        clearScreen();
         switch (charinput) {
             case 'A':
                 optionA(user);
@@ -1171,5 +1198,3 @@ public class Project_v2 {
         }
     }
 }
-
-
