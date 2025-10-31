@@ -32,15 +32,9 @@ public class Project_v2 {
         return turkishLetters.indexOf(c) != -1 || Character.isLetter(c);
     }
 
-    static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
     static void optionA(Scanner user) {
         boolean breaker = true;
         while (breaker) {
-
             System.out.println("[A]Age and Zodiac Sign Detector");
             System.out.println("[B]Reverse the Words");
             System.out.println("[C]Return to Main Menu");
@@ -60,6 +54,7 @@ public class Project_v2 {
                     break;
                 default:
                     System.err.println("Invalid input! Please enter a single character: A, B, C.");
+
             }
         }
 
@@ -1128,6 +1123,5 @@ public class Project_v2 {
         }
     }
 }
-
 
 
