@@ -7,7 +7,7 @@
 - Distances between arrays (Manhattan, Euclidean, Cosine similarity)
 - Connect 4 game (single-player vs AI or two players)
   
-▶️ [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/<user>/<repo>?quickstart=1)
+Press 👉🏻 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/<user>/<repo>?quickstart=1)
 
 After it opens, run:
 ```bash
