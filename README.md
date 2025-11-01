@@ -1,4 +1,4 @@
-# ⎋ A Colorful Terminal App With:
+# ⎋ A Colorful Terminal App
 - Age & Zodiac detector
 - Word reversal (keeps punctuation in place, supports Turkish letters)
 - Prime number generators (Eratosthenes, Sundaram, Atkin) with timings
@@ -9,7 +9,9 @@
 
 Press 👇🏼 To Run
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/<user>/<repo>?quickstart=1)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](
+  https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=OWNER%2FREPO)
+
 
 After it opens, run:
 ```bash
