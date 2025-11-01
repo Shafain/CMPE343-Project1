@@ -13,7 +13,7 @@ Press 👇🏼 To Run
 
 After it opens, run:
 ```bash
-java -jar target/project-v2-1.0.0-shaded.jar
+java -jar target/*.jar
 
 ```
 
