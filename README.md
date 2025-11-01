@@ -182,7 +182,7 @@ In single-player mode, the computer’s moves can be:
 - Every menu and submenu is **cleared** before redisplay for better readability.
 - Input validation is enforced throughout.
 - All recursive and algorithmic operations are **custom-implemented**, without relying on built-in shortcuts.
-- # Project v2 — Java Terminal App
+
 
 
 
