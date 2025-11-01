@@ -1,4 +1,8 @@
-# 🎓 School Operations & Connect Four Application
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/<user>/<repo>?quickstart=1)
+
+After it opens, run:
+```bash
+java -jar target/project-v2-1.0.0-shaded.jar# 🎓 School Operations & Connect Four Application
 
 When the user launches the application through the **command prompt**, the program displays a **colorful ASCII Art** welcome screen that includes the **team members’ names**.  
 Users can freely choose the **theme** for both the **main menu** and **submenus**.
@@ -179,9 +183,5 @@ A colorful terminal program with:
 - Distances between arrays (Manhattan, Euclidean, Cosine similarity)
 - Connect 4 game (single-player vs AI or two players)
  
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/<user>/<repo>?quickstart=1)
 
-After it opens, run:
-```bash
-java -jar target/project-v2-1.0.0-shaded.jar
 
