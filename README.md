@@ -18,6 +18,7 @@ After it opens, run:
 ```bash
 java -jar target/*.jar
 ```
+---
 ## JavaDoc for Code Documentation 👇🏼
 
 [![Javadoc](https://img.shields.io/badge/Javadoc-API%20Docs-4c1?style=for-the-badge)](https://javadoc1.netlify.app)
