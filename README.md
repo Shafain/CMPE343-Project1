@@ -1,4 +1,4 @@
-# ⎋ A colorful terminal program with:
+# ⎋ A Colorful Terminal App With:
 - Age & Zodiac detector
 - Word reversal (keeps punctuation in place, supports Turkish letters)
 - Prime number generators (Eratosthenes, Sundaram, Atkin) with timings
