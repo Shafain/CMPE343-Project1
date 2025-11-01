@@ -3,7 +3,7 @@
 - Word reversal (keeps punctuation in place, supports Turkish letters)
 - Prime number generators (Eratosthenes, Sundaram, Atkin) with timings
 - Step-by-step arithmetic expression evaluator (`+ - x : ( )`)
-- Array stats (medi👇🏼an, a👇🏼rithmetic/geometric/harmonic means)
+- Array stats (median, arithmetic/geometric/harmonic means)
 - Distances between arrays (Manhattan, Euclidean, Cosine similarity)
 - Connect 4 game (single-player vs AI or two players)
 
