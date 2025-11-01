@@ -16,7 +16,7 @@ After it opens, run:
 java -jar target/project-v2-1.0.0-shaded.jar
 
 ```
-# 🎓 School Operations & Connect Four Application
+
 ---
 
 ## 🧭 Main Menu
