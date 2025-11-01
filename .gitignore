@@ -1,1 +1,10 @@
+# Build outputs
+target/
+*.class
+*.log
+
+# OS/Editor junk
+.DS_Store
+.idea/
+.vscode/
 
