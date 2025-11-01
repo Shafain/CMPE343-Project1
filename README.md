@@ -178,8 +178,6 @@ A colorful terminal program with:
 - Array stats (median, arithmetic/geometric/harmonic means)
 - Distances between arrays (Manhattan, Euclidean, Cosine similarity)
 - Connect 4 game (single-player vs AI or two players)
-
-## One-click in your browser (recommended)
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/<user>/<repo>?quickstart=1)
 
 After it opens, run:
