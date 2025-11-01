@@ -12,9 +12,10 @@ A colorful terminal program with:
 
 After it opens, run:
 ```bash
-java -jar target/project-v2-1.0.0-shaded.jar# 🎓 School Operations & Connect Four Application
-```
+java -jar target/project-v2-1.0.0-shaded.jar
 
+```
+# 🎓 School Operations & Connect Four Application
 ---
 
 ## 🧭 Main Menu
