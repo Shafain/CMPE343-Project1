@@ -1,5 +1,5 @@
 {
   "name": "Java CLI",
   "image": "mcr.microsoft.com/devcontainers/java:11",
-  "postCreateCommand": "bash -lc 'mvn -q -DskipTests package'"
+  "postCreateCommand": "bash -lc './mvnw -q -DskipTests package'"
 }
