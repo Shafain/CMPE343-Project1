@@ -3,7 +3,7 @@
 After it opens, run:
 ```bash
 java -jar target/project-v2-1.0.0-shaded.jar# 🎓 School Operations & Connect Four Application
-
+```
 When the user launches the application through the **command prompt**, the program displays a **colorful ASCII Art** welcome screen that includes the **team members’ names**.  
 Users can freely choose the **theme** for both the **main menu** and **submenus**.
 
