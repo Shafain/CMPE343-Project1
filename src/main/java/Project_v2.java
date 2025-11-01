@@ -5,59 +5,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * <h1>Project_v2</h1>
- * A colorful, menu-driven terminal program that groups several small utilities and a Connect-4 game:
- * <ul>
- *   <li><b>Primary School</b> (Option A): Age &amp; Zodiac detector, text word-reversal that keeps punctuation in place.</li>
- *   <li><b>Secondary School</b> (Option B): Prime number generators (Eratosthenes, Sundaram, Atkin) with timing,
- *       and a step-by-step arithmetic expression evaluator.</li>
- *   <li><b>High School</b> (Option C): Array statistics (median, means) and distances/similarity between two integer vectors.</li>
- *   <li><b>University</b> (Option D): A terminal Connect-4 with optional CPU opponent (minimax, fixed depth).</li>
- * </ul>
- *
- * <p>The entry point is {@link #main(String[])}, which prints an ASCII banner, then loops the
- * top-level {@link #selectionmenu(Scanner)} until the user chooses to terminate.</p>
- *
- * <p><b>I/O</b>: All interaction is via {@link Scanner} on standard input.
- * The program validates user input and prints error messages for invalid cases.</p>
- *
- * <p><b>Terminal control</b>: ANSI color escape sequences are used on platforms that support them.
- * {@link #clearScreen()} attempts to clear the console on Windows and POSIX-like systems.</p>
- */
 public class Project_v2 {
 
-    /** ANSI: green foreground. */
     static final String GREEN = "\u001B[32m";
-    /** ANSI: blue foreground. */
     static final String BLUE = "\u001B[34m";
-    /** ANSI: magenta foreground. */
     static final String MAGENTA = "\u001B[35m";
-    /** ANSI: white foreground. */
     static final String WHITE = "\u001B[37m";
-    /** ANSI: reset attributes. */
     static final String RESET = "\u001B[0m";
-    /** ANSI: red foreground. */
     static final String RED = "\u001B[31m";
-    /** ANSI: yellow foreground. */
     static final String YELLOW = "\u001B[33m";
-    /** ANSI: cyan foreground. */
     static final String CYAN = "\u001B[36m";
 
-    /** Player disc for Connect-4 (human P1). */
     static final char PLAYER = 'X';
-    /** Player disc for Connect-4 (computer or P2 when noted). */
     static final char AI = 'O';
-    /** Max search depth for the minimax algorithm. */
     static final int MAX_DEPTH = 3;
 
-    /**
-     * In-place selection sort for a <code>double</code> array prefix of length {@code size}.
-     *
-     * @param size  number of valid elements to sort from the start of {@code array}
-     * @param array array to sort (modified in place)
-     * @return the same array reference, sorted ascending on the first {@code size} positions
-     */
     static double[] sort(int size, double[] array) {
         for (int i = 0; i < size - 1; i++) {
             int minVal = i;
@@ -73,14 +35,6 @@ public class Project_v2 {
         return array;
     }
 
-    /**
-     * Attempts to clear the terminal screen:
-     * <ul>
-     *   <li>Windows: invokes <code>cmd /c cls</code>.</li>
-     *   <li>Other OS: prints ANSI clear-screen and home codes.</li>
-     *   <li>On failure: prints 50 newlines as a simple fallback.</li>
-     * </ul>
-     */
     static void clearScreen() {
         try {
             if (System.getProperty("os.name").toLowerCase().contains("windows")) {
@@ -97,26 +51,12 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Determines whether a character is a Turkish letter (extended Latin)
-     * or any Unicode letter via {@link Character#isLetter(char)}.
-     *
-     * @param c character to test
-     * @return {@code true} if it is in the Turkish set or is a letter; otherwise {@code false}
-     */
     static boolean isTurkishLetter(char c) {
 
         String turkishLetters = "çÇğĞıİöÖşŞüÜ";
         return turkishLetters.indexOf(c) != -1 || Character.isLetter(c);
     }
 
-    /**
-     * Checks whether the given text contains at least one letter
-     * (using {@link #isTurkishLetter(char)} for broader coverage).
-     *
-     * @param text input string
-     * @return {@code true} if any letter is found; otherwise {@code false}
-     */
     static boolean containsLetter(String text) {
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
@@ -128,12 +68,6 @@ public class Project_v2 {
         return false;
     }
 
-    /**
-     * Submenu for <b>Primary School</b> features.
-     * Loops until the user chooses to return.
-     *
-     * @param user scanner for input
-     */
     static void optionA(Scanner user) {
         boolean breaker = true;
 
@@ -169,13 +103,6 @@ public class Project_v2 {
 
     }
 
-    /**
-     * Prints the Zodiac sign name based on day and month.
-     * <p>Uses simple threshold dates for each sign; no leap-year logic is needed.</p>
-     *
-     * @param day   day of month (1-31)
-     * @param month month (1-12)
-     */
     static void zodiac_sign(int day, int month) {
 
         switch (month) {
@@ -269,13 +196,6 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Reads a birth date from the user, validates it is not in the future,
-     * computes the current age, and prints both the Zodiac sign and the age.
-     * Input format is strictly {@code yyyy-MM-dd}.
-     *
-     * @param user scanner for input
-     */
     static void age_and_zodiac(Scanner user) {
         while (true) {
             System.out.println("Please enter your birthday: yyyy-MM-dd");
@@ -326,14 +246,6 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Reverses only the letters of a single word, keeping non-letters in place.
-     * For example, "a,b!" becomes "b,a!".
-     * Letter detection is done via {@link #isTurkishLetter(char)}.
-     *
-     * @param word the input token to reverse
-     * @return a new string with letters reversed in place
-     */
     static String reverse_the_word(String word) {
 
         char[] chars = word.toCharArray();
@@ -358,13 +270,6 @@ public class Project_v2 {
         return new String(chars);
     }
 
-    /**
-     * Reads a line of text and prints it with each token’s letters reversed,
-     * preserving spaces and punctuation positions.
-     * <p>Validates: non-empty input and at least one letter present.</p>
-     *
-     * @param user scanner for input
-     */
     static void reverse_the_text(Scanner user) {
         while (true) {
             System.out.println("Enter text to reverse:\n");
@@ -397,12 +302,6 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Submenu for <b>Secondary School</b> features:
-     * prime number generation and expression evaluation.
-     *
-     * @param user scanner for input
-     */
     static void optionB(Scanner user) {
         boolean breaker = true;
         while (breaker) {
@@ -429,12 +328,6 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Prompts for an integer n in [12, 1000]. Repeats until valid.
-     *
-     * @param user scanner for input
-     * @return the validated integer
-     */
     static int prime_number_input(Scanner user) {
         System.out.println("Enter an integer n >= 12:\n");
         int n, max = 1000;
@@ -462,12 +355,6 @@ public class Project_v2 {
 
     }
 
-    /**
-     * Generates primes up to n inclusive using the Sieve of Eratosthenes.
-     *
-     * @param n upper bound (≥ 2)
-     * @return list of primes ≤ n
-     */
     static List<Integer> eratosthenes(int n) {
         boolean[] isPrime = new boolean[n + 1];
         for (int i = 1; i <= n; i++) {
@@ -495,12 +382,6 @@ public class Project_v2 {
 
     }
 
-    /**
-     * Generates primes up to n inclusive using the Sieve of Sundaram.
-     *
-     * @param n upper bound
-     * @return list of primes ≤ n
-     */
     static List<Integer> sundaram(int n) {
         boolean[] not_Prime = new boolean[n + 1];
         // find the correct index
@@ -521,12 +402,6 @@ public class Project_v2 {
 
     }
 
-    /**
-     * Generates primes up to n inclusive using the Sieve of Atkin.
-     *
-     * @param n upper bound
-     * @return list of primes ≤ n
-     */
     static List<Integer> atkin(int n) {
         boolean[] isPrime = new boolean[n + 1];
         int limit = (int) Math.sqrt(n);
@@ -574,12 +449,6 @@ public class Project_v2 {
         return primes;
     }
 
-    /**
-     * Coordinates prime generation using all three sieves, measures their execution
-     * time in milliseconds, and prints sample outputs (first 3 and last 2 primes).
-     *
-     * @param user scanner (used only to pause on return to menu)
-     */
     static void prime_number_output(Scanner user) {
         int n = prime_number_input(user);
         // eratosthenes
@@ -612,13 +481,6 @@ public class Project_v2 {
         user.nextLine();
     }
 
-    /**
-     * Reads a simple arithmetic expression, validates allowed characters and balanced
-     * parentheses, normalizes <code>x</code> to <code>*</code> and <code>:</code> to <code>/</code>,
-     * then prints a step-by-step simplification using {@link #simplify(String)}.
-     *
-     * @param user scanner for input
-     */
     static void evaluate_expression(Scanner user) {
         while (true) {
             System.out.println("Enter an expression (use + - x : and parentheses):\n");
@@ -648,12 +510,6 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Checks whether parentheses in the expression are balanced.
-     *
-     * @param expr input expression
-     * @return {@code true} if balanced; otherwise {@code false}
-     */
     static boolean isParenthesesBalanced(String expr) {
         int counter = 0;
         for (char c : expr.toCharArray()) {
@@ -668,14 +524,6 @@ public class Project_v2 {
         return counter == 0;
     }
 
-    /**
-     * Evaluates a flat arithmetic expression with numbers and operators +, -, *, /.
-     * Handles unary minus by detecting contexts like the start of expression or after
-     * another operator or '('.
-     *
-     * @param expr expression with no parentheses
-     * @return computed numeric value
-     */
     static double evalSimple(String expr) {
         List<Double> numbers = new ArrayList<>();
         List<Character> ops = new ArrayList<>();
@@ -721,14 +569,6 @@ public class Project_v2 {
         return result;
     }
 
-    /**
-     * Recursively simplifies an expression by evaluating the innermost parentheses
-     * using {@link #evalSimple(String)} and printing each intermediate step.
-     * When no parentheses remain, the final value is printed and returned as a string.
-     *
-     * @param expr expression possibly containing parentheses
-     * @return the final numeric value as a string
-     */
     static String simplify(String expr) {
         int open = expr.lastIndexOf('(');
         if (open != -1) {
@@ -750,11 +590,6 @@ public class Project_v2 {
         return String.valueOf(finalVal);
     }
 
-    /**
-     * Submenu for <b>High School</b> features: array statistics and distances.
-     *
-     * @param user scanner for input
-     */
     static void optionC(Scanner user) {
         boolean breaker = true;
 
@@ -781,13 +616,6 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Median of a sorted array of size {@code size}.
-     *
-     * @param size     number of elements (array prefix must be sorted)
-     * @param stat_arr sorted data
-     * @return median value
-     */
     static double median(int size, double[] stat_arr) {
         if (size % 2 == 0) {
             return (stat_arr[size / 2 - 1] + stat_arr[size / 2]) / 2.0;
@@ -796,13 +624,6 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Arithmetic mean of the first {@code size} elements.
-     *
-     * @param size     number of elements
-     * @param stat_arr data
-     * @return arithmetic average
-     */
     static double arith_mean(int size, double[] stat_arr) {
         double sum = 0;
         for (int i = 0; i < size; i++) {
@@ -811,13 +632,6 @@ public class Project_v2 {
         return sum / size;
     }
 
-    /**
-     * Geometric mean of positive values; returns {@code null} if any value ≤ 0.
-     *
-     * @param size     number of elements
-     * @param stat_arr data
-     * @return geometric mean, or {@code null} if undefined
-     */
     static Double geo_mean(int size, double[] stat_arr) {
         double product = 1.0;
         for (int i = 0; i < size; i++) {
@@ -829,13 +643,6 @@ public class Project_v2 {
         return Math.pow(product, 1.0 / size);
     }
 
-    /**
-     * Helper for harmonic mean: recursively computes the sum of reciprocals.
-     *
-     * @param arr   data
-     * @param index current index
-     * @return sum of 1/arr[i] from index to end
-     */
     static double formula(double[] arr, int index) {
         if (index == arr.length) {
             return 0;
@@ -843,24 +650,11 @@ public class Project_v2 {
         return (1.0 / arr[index]) + formula(arr, index + 1);
     }
 
-    /**
-     * Harmonic mean of the first {@code size} elements (no zero allowed).
-     *
-     * @param size     number of elements
-     * @param stat_arr data (should not contain zero)
-     * @return harmonic mean
-     */
     static double harmonic_mean(int size, double[] stat_arr) {
         double sum = formula(stat_arr, 0);
         return size / sum;
     }
 
-    /**
-     * Reads an array size (1–20) and values, sorts them, and prints
-     * median, arithmetic mean, geometric mean (if defined), and harmonic mean.
-     *
-     * @param user scanner for input
-     */
     static void stat_info_arr(Scanner user) {
         int size = 0;
 
@@ -901,13 +695,6 @@ public class Project_v2 {
         System.out.println("Harmonic mean: " + harmonic_mean(size, stat_arr));
     }
 
-    /**
-     * Euclidean distance between two equal-length integer arrays.
-     *
-     * @param array1 first vector
-     * @param array2 second vector
-     * @return sqrt(sum((a-b)^2))
-     */
     static double euclid_dist(int[] array1, int[] array2) {
         double sum = 0;
         for (int i = 0; i < array1.length; i++) {
@@ -916,13 +703,6 @@ public class Project_v2 {
         return Math.sqrt(sum);
     }
 
-    /**
-     * Manhattan distance between two equal-length integer arrays.
-     *
-     * @param array1 first vector
-     * @param array2 second vector
-     * @return sum(|a-b|)
-     */
     static int manhattan_dist(int[] array1, int[] array2) {
         int sum = 0;
         for (int i = 0; i < array1.length; i++) {
@@ -931,14 +711,6 @@ public class Project_v2 {
         return sum;
     }
 
-    /**
-     * Cosine similarity in the range [-1,1] for two equal-length integer arrays.
-     * If any norm is zero, returns 0.0.
-     *
-     * @param array1 first vector
-     * @param array2 second vector
-     * @return cosine similarity = dot(a,b)/(|a||b|)
-     */
     static double cos_similar(int[] array1, int[] array2) {
         double dotProduct = 0;
         double normA = 0;
@@ -957,12 +729,6 @@ public class Project_v2 {
         return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
     }
 
-    /**
-     * Reads vector dimension (1–20) and coordinates for two arrays,
-     * then prints Manhattan and Euclidean distances and cosine similarity.
-     *
-     * @param user scanner for input
-     */
     static void dist_btwn_arr(Scanner user) {
         int dimension = 0;
         while (true) {
@@ -1007,11 +773,6 @@ public class Project_v2 {
         System.out.println(Arrays.toString(array2));
     }
 
-    /**
-     * Submenu for <b>University</b> features (Connect-4 board size selection).
-     *
-     * @param user scanner for input
-     */
     static void optionD(Scanner user) {
         boolean breaker = true;
 
@@ -1043,19 +804,6 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Plays a Connect-4 game on a board of given size.
-     * <ul>
-     *   <li>Two-player mode: players alternate turns.</li>
-     *   <li>vsComputer: after Player 1 moves, the AI makes a move using {@link #getBestMove(char[][], int)}.</li>
-     * </ul>
-     * Prints the board after moves and reports win/draw.
-     *
-     * @param user        scanner for input
-     * @param cols        number of columns
-     * @param rows        number of rows
-     * @param vsComputer  {@code true} for single-player vs AI; {@code false} for two players
-     */
     static void playGame(Scanner user, int cols, int rows, boolean vsComputer) {
         char[][] board = new char[rows][cols];
         initializeBoard(board);
@@ -1121,22 +869,12 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Fills the board with '.' (empty slots).
-     *
-     * @param board board to initialize
-     */
     static void initializeBoard(char[][] board) {
         for (int i = 0; i < board.length; i++)
             for (int j = 0; j < board[0].length; j++)
                 board[i][j] = '.';
     }
 
-    /**
-     * Renders the board with borders, colored discs, and numbered columns.
-     *
-     * @param board current board
-     */
     static void printBoard(char[][] board) {
         int rows = board.length;
         int cols = board[0].length;
@@ -1179,14 +917,6 @@ public class Project_v2 {
         System.out.println("\n");
     }
 
-    /**
-     * Drops a disc into the given column if there is space.
-     *
-     * @param board board
-     * @param col   zero-based column index
-     * @param disc  disc character to place
-     * @return {@code true} if the disc was placed; otherwise {@code false}
-     */
     static boolean placeDisc(char[][] board, int col, char disc) {
         for (int i = board.length - 1; i >= 0; i--) {
             if (board[i][col] == '.') {
@@ -1197,13 +927,6 @@ public class Project_v2 {
         return false;
     }
 
-    /**
-     * Checks whether the given disc has four in a row (horizontal, vertical, or diagonal).
-     *
-     * @param board board
-     * @param disc  disc to check
-     * @return {@code true} if that player has won; otherwise {@code false}
-     */
     static boolean checkWin(char[][] board, char disc) {
         int rows = board.length, cols = board[0].length;
         // Horizontal
@@ -1233,12 +956,6 @@ public class Project_v2 {
         return false;
     }
 
-    /**
-     * Returns whether the board is full (no moves possible).
-     *
-     * @param board board
-     * @return {@code true} if the top row has no '.' in any column; otherwise {@code false}
-     */
     static boolean isFull(char[][] board) {
         for (int c = 0; c < board[0].length; c++)
             if (board[0][c] == '.')
@@ -1246,14 +963,6 @@ public class Project_v2 {
         return true;
     }
 
-    /**
-     * Chooses the AI's column by evaluating each possible move with {@link #minimax(char[][], int, boolean)}
-     * to a fixed depth and selecting the highest score.
-     *
-     * @param board current board
-     * @param depth search depth (e.g., {@link #MAX_DEPTH})
-     * @return best column index for the AI
-     */
     static int getBestMove(char[][] board, int depth) {
         int bestScore = Integer.MIN_VALUE;
         int bestCol = 0;
@@ -1271,15 +980,6 @@ public class Project_v2 {
         return bestCol;
     }
 
-    /**
-     * Minimax evaluation of a Connect-4 position with terminal checks:
-     * AI win = +1000, PLAYER win = -1000, draw or depth limit = 0.
-     *
-     * @param board            position to evaluate
-     * @param depth            remaining depth
-     * @param maximizingPlayer {@code true} for AI’s turn; {@code false} for human’s turn
-     * @return heuristic score
-     */
     static int minimax(char[][] board, int depth, boolean maximizingPlayer) {
         if (checkWin(board, AI))
             return 1000;
@@ -1311,12 +1011,6 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Deep copy of a rectangular char board.
-     *
-     * @param board source
-     * @return new board with duplicated rows
-     */
     static char[][] copyBoard(char[][] board) {
         char[][] newBoard = new char[board.length][board[0].length];
         for (int i = 0; i < board.length; i++)
@@ -1324,14 +1018,6 @@ public class Project_v2 {
         return newBoard;
     }
 
-    /**
-     * Mode selector for Connect-4. Lets the user choose AI or two-player mode
-     * for the provided board dimensions, or return to the main menu.
-     *
-     * @param user scanner for input
-     * @param cols columns
-     * @param rows rows
-     */
     static void game_mode(Scanner user, int cols, int rows) {
         boolean breaker = true;
 
@@ -1362,12 +1048,6 @@ public class Project_v2 {
         }
     }
 
-    /**
-     * Top-level selection menu that routes to each module, or terminates the program.
-     *
-     * @param user scanner for input
-     * @return {@code true} to continue showing the menu; {@code false} to exit
-     */
     static boolean selectionmenu(Scanner user) {
         System.out.println("[A]Primary School");
         System.out.println("[B]Secondary School");
@@ -1399,12 +1079,6 @@ public class Project_v2 {
         return true;
     }
 
-    /**
-     * Entry point. Prints an ANSI art banner and repeatedly invokes the selection menu
-     * until the user chooses to terminate. Any unexpected exception is printed to stderr.
-     *
-     * @param args ignored
-     */
     public static void main(String[] args) {
         try (Scanner user = new Scanner(System.in)) {
             boolean breaker = true;
