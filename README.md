@@ -10,7 +10,8 @@
 Press 👇🏼 To Run
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](
-  https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=OWNER%2FREPO)
+  https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=Shafain%2FCMPE343-Project1)
+
 
 
 After it opens, run:
